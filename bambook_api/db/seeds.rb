@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+8.times do |number|
+Book.create!(title: "title #{number}", description: "description #{number}", author: "author description")
+ end
