@@ -11,7 +11,7 @@ export class AppComponent {
   books;
 
   constructor(private http: HttpClient) {
-    http.get('http://localhost:3000/books.json')
+    http.get('http://localhost:3000/api/v1/books.json')
       .subscribe(res => this.books = res);
   }
 }
