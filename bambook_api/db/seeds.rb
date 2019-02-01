@@ -9,6 +9,5 @@
 
 8.times do |number|
 Book.create!(title: "title #{number}", description: "description #{number}", author: "author description")
-User.create(email: "user#{number}@example.com", nickname: 'UOne', name: "user#{number}", password: "monkey67")
 end
 
