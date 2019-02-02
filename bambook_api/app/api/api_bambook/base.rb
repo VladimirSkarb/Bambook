@@ -7,7 +7,7 @@ module ApiBambook
       hide_documantation_path: true,
       hide_format: true,
       info: {
-        title: 'API documantation'
+        title: 'API documentation'
       })
   end
 end

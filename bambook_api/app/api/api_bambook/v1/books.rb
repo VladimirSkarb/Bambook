@@ -18,6 +18,39 @@ module ApiBambook
             present book, with: ApiBambook::Entities::Book
           end
         end
+
+        desc 'Create a new book'
+        params do
+          requires :title, type: String
+          requires :description, type: String
+          requires :author, type: String
+        end
+        post do
+          book = Book.create!({ title:params[:title], description:params[:description],author:params[:author]})
+          present book, with: ApiBambook::Entities::Book
+        end
+
+        desc 'Update a specific book'
+        params do
+          requires :title, type: String
+          requires :description, type: String
+          requires :author, type: String
+        end
+        route_param :id do
+          put do
+            book = Book.find(params[:id]).update({ title:params[:title], description:params[:description],author:params[:author] })
+            #present book, with: ApiBambook::Entities::Book
+          end
+        end
+
+        desc 'Delete a specific book'
+        route_param :id do
+          delete do
+            book = Book.find(params[:id])
+            book.destroy
+          end
+        end
+
       end
     end
   end
