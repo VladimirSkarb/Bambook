@@ -9,7 +9,7 @@ rails s<br/>
 rails db:drop
 bundle install
 create .env in root(add params from .env.example)
-rails db:create db:migrate db:drop
+rails db:create db:migrate db:seed
 rails s
 
 http://localhost:3000/swagger   - swagger documentation
