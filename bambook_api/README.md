@@ -5,3 +5,13 @@ gem install bundler<br/>
 bundle install<br/>
 rails db:create db:migrate db:seed<br/>
 rails s<br/>
+
+rails db:drop
+bundle install
+create .env in root(add params from .env.example)
+rails db:create db:migrate db:drop
+rails s
+
+http://localhost:3000/swagger   - swagger documentation
+
+
