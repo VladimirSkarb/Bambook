@@ -1,3 +1,4 @@
+require 'pry'
 module ApiBambook
   module V1
     class Books < Grape::API
@@ -24,9 +25,11 @@ module ApiBambook
           requires :title, type: String
           requires :description, type: String
           requires :author, type: String
+          requires :cover_photo, type: File
         end
         post do
-          book = Book.create!({ title:params[:title], description:params[:description],author:params[:author]})
+          book = Book.create!({ title:params[:title], description:params[:description], author:params[:author]})
+          book.cover_photo.attach(io:File.open(params[:cover_photo][:tempfile].path), filename: params[:cover_photo][:filename])
           present book, with: ApiBambook::Entities::Book
         end
 

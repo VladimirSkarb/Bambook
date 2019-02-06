@@ -3,9 +3,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+
 gem 'debase'
+gem 'pry'
 gem 'ruby-debug-ide'
 
+gem 'aws-sdk-s3', require: false
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
