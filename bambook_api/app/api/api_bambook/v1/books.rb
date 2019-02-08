@@ -26,11 +26,22 @@ module ApiBambook
           requires :description, type: String
           requires :author, type: String
           requires :cover_photo, type: File
+          requires :book_file, type: File
         end
         post do
-          book = Book.create!({ title:params[:title], description:params[:description], author:params[:author]})
-          book.cover_photo.attach(io:File.open(params[:cover_photo][:tempfile].path), filename: params[:cover_photo][:filename])
-          present book, with: ApiBambook::Entities::Book
+          book = Book.new({ title:params[:title], description:params[:description], author:params[:author]})
+          #binding.pry
+          if book.save
+            book.cover_photo.attach(io:File.open(params[:cover_photo][:tempfile].path), filename: params[:cover_photo][:filename])
+            book.book_file.attach(io:File.open(params[:book_file][:tempfile].path), filename: params[:book_file][:filename])
+            if book.cover_photo.attached? && book.book_file.attached?
+              present book, with: ApiBambook::Entities::Book
+            else
+              { error: 'The book was not attached. Please, try again!' }
+            end
+          else
+            { error: "#{book.errors.full_messages}" }
+          end
         end
 
         desc 'Update a specific book'
