@@ -2,10 +2,8 @@ require 'pry'
 module ApiBambook
   module V1
     class Books < Grape::API
-      version 'v1', using: :path
-      format :json
-      prefix :api
       resource :books do
+        #binding.pry
         desc 'Return list of books'
         get do
           books = Book.all
@@ -64,7 +62,6 @@ module ApiBambook
             book.destroy
           end
         end
-
       end
     end
   end
