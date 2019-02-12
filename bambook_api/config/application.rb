@@ -25,6 +25,7 @@ module BambookApi
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+    config.autoload_paths += Dir["#{config.root}/app/api/**/**/"]
 
     #autoloads lib folder during production
     config.eager_load_paths << Rails.root.join('lib')

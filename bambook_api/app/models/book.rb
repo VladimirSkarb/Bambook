@@ -10,7 +10,7 @@ class Book < ApplicationRecord
       book.cover_photo.attach(io: File.open(cover_photo.path), filename: cover_photo.path.split('/').last)
       book.book_file.attach(io: uploaded_book_file, filename: params[:book_file][:filename])
     rescue
-      {status: 'The book or cover photo was not upload. Please doublecheck it'}
+      { status: 'The book or cover photo was not upload. Please doublecheck it' }
     end
 
   end
