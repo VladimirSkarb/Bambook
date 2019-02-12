@@ -1,6 +1,6 @@
 module ApiBambook
   module Entities
-    class User < Grape::Entity
+    class UsersEntity < Grape::Entity
       expose :id
       expose :email
       expose :password_digest

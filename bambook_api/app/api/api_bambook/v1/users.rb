@@ -1,10 +1,11 @@
-require 'pry'
 module ApiBambook
   module V1
-    class Users < Grape::API
-
+    class Users < Main
       resource :users do
-        #binding.pry
+        get 'test' do
+          { user: 'Hello'}
+        end
+
         desc 'Create a new user.'
         params do
           requires :user, type: Hash do
@@ -16,23 +17,22 @@ module ApiBambook
         post '/register' do
           user = User.new(declared(params, include_missing: false)[:user])
           if user.save
-            present user, with: ApiBambook::Entities::User
+            present user, with: ApiBambook::Entities::UsersEntity
           else
-            { error: "#{user.errors.full_messages}" }
+            { error: user.errors.messages }
           end
         end
 
         desc 'LogIn.'
         params do
-          requires :user, type: Hash do
-            requires :email, type: String
-            requires :password, type: String
-          end
+          requires :email, type: String
+          requires :password, type: String
         end
         post '/login' do
-          #binding.pry
-          command = AuthenticateUser.call(declared(params, include_missing: false)[:user])
+          command = AuthenticateUser.call(email:params[:email], password:params[:password])
           if command.success?
+            present
+
             {
                 access_token: command.result,
                 message: 'Login Successful'
@@ -47,7 +47,7 @@ module ApiBambook
           delete do
             user = User.find(params[:id])
             user.destroy
-            'User was destroy'
+            {status: :deleted}
           end
         end
       end
