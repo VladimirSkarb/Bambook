@@ -5,7 +5,7 @@ module ApiBambook
 
         before do
           puts '**************'
-          puts @current_user.email
+          puts @current_user.email if @current_user
           puts logged_in?
           puts '**************'
         end
@@ -33,19 +33,25 @@ module ApiBambook
           end
           requires :cover_photo, type: File
           requires :book_file, type: File
+          # field for Authorization Token
+          optional :Authorization, type: String, documentation: { param_type: 'header' }
         end
         post do
-          book = Book.new(declared(params, include_missing: false)[:book])
-          if book.valid?
-            attach_files = book.attachment_manager(params, book)
-            if book.cover_photo.attached? && book.book_file.attached?
-              book.save
-              present book, with: ApiBambook::Entities::BooksEntity
+          if logged_in?
+            book = @current_user.books.new(declared(params, include_missing: false)[:book])
+            if book.valid?
+              attach_files = book.attachment_manager(params, book)
+              if book.cover_photo.attached? && book.book_file.attached?
+                book.save
+                present book, with: ApiBambook::Entities::BooksEntity
+              else
+                attach_files
+              end
             else
-              attach_files
+              { error: book.errors.messages }
             end
           else
-            { error: book.errors.messages }
+            {status: :not_registered}
           end
         end
 
@@ -61,10 +67,13 @@ module ApiBambook
         end
         route_param :id do
           put do
-            #binding.pry
             book = Book.find(params[:id])
-            book if book.update(declared(params, include_missing: false)[:book])
-            present book, with: ApiBambook::Entities::BooksEntity
+            if current_user?(book.user)
+              book if book.update(declared(params, include_missing: false)[:book])
+              present book, with: ApiBambook::Entities::BooksEntity
+            else
+              {status: :no_access}
+            end
           end
         end
 
@@ -72,8 +81,12 @@ module ApiBambook
         route_param :id do
           delete do
             book = Book.find(params[:id])
-            book.destroy
-            {status: :deleted}
+            if current_user?(book.user)
+              book.destroy
+              {status: :deleted}
+            else
+              {status: :no_access}
+            end
           end
         end
       end

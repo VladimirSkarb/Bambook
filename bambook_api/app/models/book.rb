@@ -1,5 +1,7 @@
 class Book < ApplicationRecord
   validates :title, :author, :description, presence: true
+  belongs_to :user
+
   has_one_attached :cover_photo
   has_one_attached :book_file
 
