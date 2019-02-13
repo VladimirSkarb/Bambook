@@ -1,7 +1,7 @@
 module ApiBambook
   class Base < Grape::API
     include ExceptionHandler
-    helpers Sessions
+    helpers SessionsHelper
     prefix :api
 
     mount ApiBambook::V1::Main

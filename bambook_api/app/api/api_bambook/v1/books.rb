@@ -2,6 +2,14 @@ module ApiBambook
   module V1
     class Books < Main
       resource :books do
+
+        before do
+          puts '**************'
+          puts @current_user.email
+          puts logged_in?
+          puts '**************'
+        end
+
         desc 'Return list of books'
         get do
           books = Book.all
@@ -18,14 +26,16 @@ module ApiBambook
 
         desc 'Create a new book'
         params do
-          requires :title, type: String
-          requires :description, type: String
-          requires :author, type: String
+          requires :book, type: Hash do
+            requires :title, type: String
+            requires :description, type: String
+            requires :author, type: String
+          end
           requires :cover_photo, type: File
           requires :book_file, type: File
         end
         post do
-          book = Book.new({ title:params[:title], description:params[:description], author:params[:author]})
+          book = Book.new(declared(params, include_missing: false)[:book])
           if book.valid?
             attach_files = book.attachment_manager(params, book)
             if book.cover_photo.attached? && book.book_file.attached?
