@@ -18,17 +18,18 @@ module ExceptionHandler
     rescue_from ExceptionHandler::DecodeError, with: :four_zero_one
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      render json: { message: e.message }, status: :not_found
+      render json: { message: e.message, status: :not_found }
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      render json: { message: e.message }, status: :unprocessable_entity
+      render json: { message: e.message, status: :unprocessable_entity }
     end
   end
 
   private
 
   # JSON response with message; Status code 422 - unprocessable entity
+
   def four_twenty_two(e)
     render json: { message: e.message }, status: :unprocessable_entity
   end
