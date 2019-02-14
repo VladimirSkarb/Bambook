@@ -89,6 +89,34 @@ module ApiBambook
             end
           end
         end
+
+        desc 'Get reviews of specific book'
+        route_param :id do
+          get '/reviews' do
+            book = Book.find(params[:id])
+            reviews = book.reviews
+            present reviews, with: ApiBambook::Entities::ReviewsEntity
+          end
+        end
+
+        desc 'Create review for a specific book'
+        params do
+          requires :comment, type: String
+          requires :rating, type: Integer
+          optional :Authorization, type: String, documentation: { param_type: 'header' }
+        end
+          route_param :id do
+            post '/reviews' do
+              book = Book.find(params[:id])
+              if logged_in?
+                review = book.reviews.create(comment:params[:comment], rating:params[:rating], user_id:@current_user.id)
+                present review, with: ApiBambook::Entities::ReviewsEntity
+              else
+                {status: :not_registered}
+              end
+            end
+          end
+
       end
     end
   end
