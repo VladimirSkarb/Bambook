@@ -10,7 +10,6 @@ module ApiBambook
 
       mount ApiBambook::V1::Books
       mount ApiBambook::V1::Users
-
     end
   end
 end

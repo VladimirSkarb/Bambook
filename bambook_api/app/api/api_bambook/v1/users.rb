@@ -3,7 +3,7 @@ module ApiBambook
     class Users < Main
       resource :users do
         get 'test' do
-          { user: 'Hello'}
+          { user: 'Hello' }
         end
 
         desc 'Create a new user.'
@@ -29,13 +29,13 @@ module ApiBambook
           requires :password, type: String
         end
         post '/login' do
-          command = AuthenticateUser.call(email:params[:email], password:params[:password])
+          command = AuthenticateUser.call(email: params[:email], password: params[:password])
           if command.success?
             present
 
             {
-                access_token: command.result,
-                message: 'Login Successful'
+              access_token: command.result,
+              message: 'Login Successful'
             }
           else
             error!('message', 404)
@@ -47,7 +47,7 @@ module ApiBambook
           delete do
             user = User.find(params[:id])
             user.destroy
-            {status: :deleted}
+            { status: :deleted }
           end
         end
       end

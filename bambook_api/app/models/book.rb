@@ -7,15 +7,12 @@ class Book < ApplicationRecord
   has_one_attached :book_file
 
   def attachment_manager(params, book)
-    begin
-      uploaded_book_file = File.open(params[:book_file][:tempfile].path)
-      cover_photo = image_converter(File.open(params[:cover_photo][:tempfile].path))
-      book.cover_photo.attach(io: File.open(cover_photo.path), filename: cover_photo.path.split('/').last)
-      book.book_file.attach(io: uploaded_book_file, filename: params[:book_file][:filename])
-    rescue
-      { status: 'The book or cover photo was not upload. Please doublecheck it' }
-    end
-
+    uploaded_book_file = File.open(params[:book_file][:tempfile].path)
+    cover_photo = image_converter(File.open(params[:cover_photo][:tempfile].path))
+    book.cover_photo.attach(io: File.open(cover_photo.path), filename: cover_photo.path.split('/').last)
+    book.book_file.attach(io: uploaded_book_file, filename: params[:book_file][:filename])
+  rescue StandardError
+    { status: 'The book or cover photo was not upload. Please doublecheck it' }
   end
 
   def product_image_url
@@ -30,7 +27,7 @@ class Book < ApplicationRecord
 
   def image_converter(uploaded_cover_photo)
     image = MiniMagick::Image.open(uploaded_cover_photo)
-    image.resize "320x240"
+    image.resize '320x240'
   end
 
   def image_url_for(attachment)

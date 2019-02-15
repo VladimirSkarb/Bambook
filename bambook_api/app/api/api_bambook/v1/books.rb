@@ -2,7 +2,6 @@ module ApiBambook
   module V1
     class Books < Main
       resource :books do
-
         before do
           puts '**************'
           puts @current_user.email if @current_user
@@ -51,7 +50,7 @@ module ApiBambook
               { error: book.errors.messages }
             end
           else
-            {status: :not_registered}
+            { status: :not_registered }
           end
         end
 
@@ -72,7 +71,7 @@ module ApiBambook
               book if book.update(declared(params, include_missing: false)[:book])
               present book, with: ApiBambook::Entities::BooksEntity
             else
-              {status: :no_access}
+              { status: :no_access }
             end
           end
         end
@@ -83,9 +82,9 @@ module ApiBambook
             book = Book.find(params[:id])
             if current_user?(book.user)
               book.destroy
-              {status: :deleted}
+              { status: :deleted }
             else
-              {status: :no_access}
+              { status: :no_access }
             end
           end
         end
@@ -105,18 +104,17 @@ module ApiBambook
           requires :rating, type: Integer
           optional :Authorization, type: String, documentation: { param_type: 'header' }
         end
-          route_param :id do
-            post '/reviews' do
-              book = Book.find(params[:id])
-              if logged_in?
-                review = book.reviews.create(comment:params[:comment], rating:params[:rating], user_id:@current_user.id)
-                present review, with: ApiBambook::Entities::ReviewsEntity
-              else
-                {status: :not_registered}
-              end
+        route_param :id do
+          post '/reviews' do
+            book = Book.find(params[:id])
+            if logged_in?
+              review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: @current_user.id)
+              present review, with: ApiBambook::Entities::ReviewsEntity
+            else
+              { status: :not_registered }
             end
           end
-
+        end
       end
     end
   end

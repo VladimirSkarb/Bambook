@@ -7,7 +7,7 @@ module ApiBambook
       expose :description
       expose :product_image_url
       expose :download_book_url
-      # expose :название ключа, with: ентити
+      # expose :key name, with: entity
     end
   end
 end

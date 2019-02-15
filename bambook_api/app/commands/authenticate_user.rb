@@ -8,7 +8,7 @@ class AuthenticateUser
     @password = password
   end
 
-  #this is where the result gets returned
+  # this is where the result gets returned
   def call
     JsonWebToken.encode(user_id: user.id) if user
   end
