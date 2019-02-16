@@ -62,6 +62,7 @@ module ApiBambook
             optional :author, type: String, allow_blank: false
             optional :cover_photo, type: File, allow_blank: false
             optional :book_file, type: File, allow_blank: false
+            optional :Authorization, type: String, documentation: { param_type: 'header' }
           end
         end
         route_param :id do
@@ -77,6 +78,9 @@ module ApiBambook
         end
 
         desc 'Delete a specific book'
+        params do
+          optional :Authorization, type: String, documentation: { param_type: 'header' }
+        end
         route_param :id do
           delete do
             book = Book.find(params[:id])
@@ -88,6 +92,8 @@ module ApiBambook
             end
           end
         end
+
+        # Operations with reviews
 
         desc 'Get reviews of specific book'
         route_param :id do
