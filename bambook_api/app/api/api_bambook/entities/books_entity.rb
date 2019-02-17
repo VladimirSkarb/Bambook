@@ -7,7 +7,6 @@ module ApiBambook
       expose :description
       expose :product_image_url
       expose :download_book_url
-      # expose :key name, with: entity
     end
   end
 end
