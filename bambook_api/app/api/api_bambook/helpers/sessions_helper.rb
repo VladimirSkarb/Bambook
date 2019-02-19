@@ -13,7 +13,7 @@ module SessionsHelper
   end
 
   # Returns true if the given user is the current user.
-  def current_user?(user)
+  def is_owner(user)
     user == current_user
   end
 end

@@ -37,6 +37,7 @@ module ApiBambook
         end
         post do
           if logged_in?
+            # before { logged_in?}
             book = @current_user.books.new(declared(params, include_missing: false)[:book])
             if book.valid?
               attach_files = book.attachment_manager(params, book)
@@ -60,16 +61,17 @@ module ApiBambook
             optional :title, type: String, allow_blank: false
             optional :description, type: String, allow_blank: false
             optional :author, type: String, allow_blank: false
-            optional :cover_photo, type: File, allow_blank: false
-            optional :book_file, type: File, allow_blank: false
-            optional :Authorization, type: String, documentation: { param_type: 'header' }
           end
+          optional :cover_photo, type: File, allow_blank: false
+          optional :book_file, type: File, allow_blank: false
+          optional :Authorization, type: String, documentation: { param_type: 'header' }
         end
         route_param :id do
           put do
             book = Book.find(params[:id])
-            if current_user?(book.user)
+            if is_owner(book.user)
               book if book.update(declared(params, include_missing: false)[:book])
+              book.attachment_manager(params, book)
               present book, with: ApiBambook::Entities::BooksEntity
             else
               { status: :no_access }
@@ -84,7 +86,7 @@ module ApiBambook
         route_param :id do
           delete do
             book = Book.find(params[:id])
-            if current_user?(book.user)
+            if is_owner(book.user)
               book.destroy
               { status: :deleted }
             else

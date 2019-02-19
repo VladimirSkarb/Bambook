@@ -2,10 +2,6 @@ module ApiBambook
   module V1
     class Users < Main
       resource :users do
-        get 'test' do
-          { user: 'Hello' }
-        end
-
         desc 'Return list of users'
         get do
           users = User.all
@@ -63,12 +59,21 @@ module ApiBambook
         route_param :id do
           delete do
             user = User.find(params[:id])
-            if current_user?(user)
+            if is_owner(user)
               user.destroy
               { status: :deleted }
             else
               { status: :no_access }
             end
+          end
+        end
+
+        desc 'Return list of user books'
+        route_param :id do
+          get '/books' do
+            user = User.find(params[:id])
+            user_books = Book.where(user_id: user.id)
+            present user_books, with: ApiBambook::Entities::BooksEntity
           end
         end
       end

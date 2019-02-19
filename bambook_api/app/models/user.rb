@@ -3,6 +3,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   has_secure_password
 
-  has_many :books
-  has_many :reviews
+  has_many :books, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 end
