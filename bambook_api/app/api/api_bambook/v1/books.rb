@@ -38,7 +38,7 @@ module ApiBambook
         post do
           if logged_in?
             # before { logged_in?}
-            book = @current_user.books.new(declared(params, include_missing: false)[:book])
+            book = @current_user.books.new(declared_params[:book])
             if book.valid?
               attach_files = book.attachment_manager(params, book)
               if book.cover_photo.attached? && book.book_file.attached?
@@ -70,7 +70,7 @@ module ApiBambook
           put do
             book = Book.find(params[:id])
             if is_owner(book.user)
-              book if book.update(declared(params, include_missing: false)[:book])
+              book if book.update(declared_params[:book])
               book.attachment_manager(params, book)
               present book, with: ApiBambook::Entities::BooksEntity
             else

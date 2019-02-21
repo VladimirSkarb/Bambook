@@ -17,7 +17,7 @@ module ApiBambook
           end
         end
         post '/register' do
-          user = User.new(declared(params, include_missing: false)[:user])
+          user = User.new(declared_params[:user])
           if user.save
             present user, with: ApiBambook::Entities::UsersEntity
           else
