@@ -10,14 +10,12 @@ module ApiBambook
 
         desc 'Create a new user.'
         params do
-          requires :user, type: Hash do
-            requires :email, type: String
-            requires :password, type: String
-            requires :password_confirmation, type: String
-          end
+          requires :email, type: String
+          requires :password, type: String
+          #requires :password_confirmation, type: String
         end
         post '/register' do
-          user = User.new(declared_params[:user])
+          user = User.new(email: params[:email], password: params[:password])
           if user.save
             present user, with: ApiBambook::Entities::UsersEntity
           else

@@ -1,7 +1,13 @@
-<h1>
-  {{title}}
-</h1>
+<router-outlet></router-outlet>
 
-<ul>
-  <li *ngFor="let book of books"> Title: {{ book.title }}  || Author: {{ book.author }} || Description: {{ book.description }}</li>
-</ul>
+<!--Test loggedIn  and logout methods-->
+<div class="logged_user" *ngIf="loggedIn">
+  <h2>User loged In</h2>
+  <button (click)="logout()">Logout</button>
+</div>
+
+<div class="logged_user" *ngIf="loggedIn==false">
+<h2>Not registred</h2>
+    <a routerLink="auth/login">Login</a><br>
+    <a routerLink="auth/register">Register</a>
+</div>
