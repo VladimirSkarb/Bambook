@@ -3,10 +3,21 @@ module ApiBambook
     class Main < Base
       version 'v1', using: :path, parameter: 'api_bambook'
       format :json
-      # rescue_from :all
-      before do
-        current_user
-      end
+
+      helpers ApiBambook::Helpers::MainHelper
+      helpers ApiBambook::Helpers::SessionsHelper
+
+      rescue_from ActiveRecord::RecordInvalid,
+                  ExceptionHandler::MissingToken,
+                  ExceptionHandler::InvalidToken,
+                  ExceptionHandler::ExpiredSignature,
+                  ExceptionHandler::DecodeError,
+                  ExceptionHandler::AuthenticationError, ->(error) { four_twenty_two!(error) }
+
+      rescue_from ActiveRecord::RecordNotFound, ->(error) { record_not_found!(error) }
+      # rescue_from Pundit::NotAuthorizedError, with: :access_denied
+
+      before { current_user }
 
       mount ApiBambook::V1::Books
       mount ApiBambook::V1::Users
