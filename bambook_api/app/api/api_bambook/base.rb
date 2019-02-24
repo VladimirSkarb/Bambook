@@ -1,11 +1,8 @@
 module ApiBambook
   class Base < Grape::API
-    include ExceptionHandler
-    helpers SessionsHelper
     prefix :api
 
     mount ApiBambook::V1::Main
-    helpers ApiBambook::Helpers::MainHelper
 
     add_swagger_documentation(
       api_version: 'v1',
