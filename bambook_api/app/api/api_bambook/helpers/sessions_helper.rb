@@ -12,7 +12,7 @@ module ApiBambook
       end
 
       # Returns true if the given user is the current user.
-      def is_owner(user)
+      def owner?(user)
         user == current_user
       end
     end

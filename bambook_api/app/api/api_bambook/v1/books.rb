@@ -69,7 +69,7 @@ module ApiBambook
         route_param :id do
           put do
             book = Book.find(params[:id])
-            if is_owner(book.user)
+            if owner?(book.user)
               book if book.update(declared_params[:book])
               book.attachment_manager(params, book)
               present book, with: ApiBambook::Entities::BooksEntity
@@ -86,7 +86,7 @@ module ApiBambook
         route_param :id do
           delete do
             book = Book.find(params[:id])
-            if is_owner(book.user)
+            if owner?(book.user)
               book.destroy
               { status: :deleted }
             else

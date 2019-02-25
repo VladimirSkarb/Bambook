@@ -57,7 +57,7 @@ module ApiBambook
         route_param :id do
           delete do
             user = User.find(params[:id])
-            if is_owner(user)
+            if owner?(user)
               user.destroy
               { status: :deleted }
             else
