@@ -2,25 +2,10 @@ module ApiBambook
   module V1
     class Books < Main
       resource :books do
-        before do
-          puts '**************'
-          puts @current_user.email if @current_user
-          puts logged_in?
-          puts '**************'
-        end
-
         desc 'Return list of books'
         get do
           books = Book.all
           present books, with: ApiBambook::Entities::BooksEntity
-        end
-
-        desc 'Return a specific book'
-        route_param :id do
-          get do
-            book = Book.find(params[:id])
-            present book, with: ApiBambook::Entities::BooksEntity
-          end
         end
 
         desc 'Create a new book'
@@ -55,20 +40,26 @@ module ApiBambook
           end
         end
 
-        desc 'Update a specific book'
-        params do
-          requires :book, type: Hash do
-            optional :title, type: String, allow_blank: false
-            optional :description, type: String, allow_blank: false
-            optional :author, type: String, allow_blank: false
+        route_param :book_id do
+          desc 'Return a specific book'
+          get do
+            book = Book.find(params[:book_id])
+            present book, with: ApiBambook::Entities::BooksEntity
           end
-          optional :cover_photo, type: File, allow_blank: false
-          optional :book_file, type: File, allow_blank: false
-          optional :Authorization, type: String, documentation: { param_type: 'header' }
-        end
-        route_param :id do
+
+          desc 'Update a specific book'
+          params do
+            requires :book, type: Hash do
+              optional :title, type: String, allow_blank: false
+              optional :description, type: String, allow_blank: false
+              optional :author, type: String, allow_blank: false
+            end
+            optional :cover_photo, type: File, allow_blank: false
+            optional :book_file, type: File, allow_blank: false
+            optional :Authorization, type: String, documentation: { param_type: 'header' }
+          end
           put do
-            book = Book.find(params[:id])
+            book = Book.find(params[:book_id])
             if owner?(book.user)
               book if book.update(declared_params[:book])
               book.attachment_manager(params, book)
@@ -77,15 +68,13 @@ module ApiBambook
               { status: :no_access }
             end
           end
-        end
 
-        desc 'Delete a specific book'
-        params do
-          optional :Authorization, type: String, documentation: { param_type: 'header' }
-        end
-        route_param :id do
+          desc 'Delete a specific book'
+          params do
+            optional :Authorization, type: String, documentation: { param_type: 'header' }
+          end
           delete do
-            book = Book.find(params[:id])
+            book = Book.find(params[:book_id])
             if owner?(book.user)
               book.destroy
               { status: :deleted }
@@ -96,25 +85,22 @@ module ApiBambook
         end
 
         # Operations with reviews
-
-        desc 'Get reviews of specific book'
-        route_param :id do
+        route_param :review_id do
+          desc 'Get reviews of specific book'
           get '/reviews' do
-            book = Book.find(params[:id])
+            book = Book.find(params[:review_id])
             reviews = book.reviews
             present reviews, with: ApiBambook::Entities::ReviewsEntity
           end
-        end
 
-        desc 'Create review for a specific book'
-        params do
-          requires :comment, type: String
-          requires :rating, type: Integer
-          optional :Authorization, type: String, documentation: { param_type: 'header' }
-        end
-        route_param :id do
+          desc 'Create review for a specific book'
+          params do
+            requires :comment, type: String
+            requires :rating, type: Integer
+            optional :Authorization, type: String, documentation: { param_type: 'header' }
+          end
           post '/reviews' do
-            book = Book.find(params[:id])
+            book = Book.find(params[:review_id])
             if logged_in?
               review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: @current_user.id)
               present review, with: ApiBambook::Entities::ReviewsEntity
