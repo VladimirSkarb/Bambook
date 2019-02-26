@@ -13,12 +13,12 @@ module ApiBambook
           requires :email, type: String
           requires :password, type: String
         end
-        post '/register' do
+        post do
           user = User.new(email: params[:email], password: params[:password])
           if user.save
             present user, with: ApiBambook::Entities::UsersEntity
           else
-            { error: user.errors.messages }
+            error!(user.errors.messages, 422)
           end
         end
 
@@ -37,7 +37,7 @@ module ApiBambook
               message: 'Login Successful'
             }
           else
-            error!('message', 404)
+            error!(command.errors, 404)
           end
         end
 
