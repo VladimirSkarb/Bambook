@@ -12,7 +12,6 @@ module ApiBambook
         params do
           requires :email, type: String
           requires :password, type: String
-          #requires :password_confirmation, type: String
         end
         post '/register' do
           user = User.new(email: params[:email], password: params[:password])
@@ -42,19 +41,14 @@ module ApiBambook
           end
         end
 
-        desc 'Return a specific user'
         route_param :id do
+          desc 'Return a specific user'
           get do
             user = User.find(params[:id])
             present user, with: ApiBambook::Entities::UsersEntity
           end
-        end
 
-        desc 'Delete user'
-        params do
-          optional :Authorization, type: String, documentation: { param_type: 'header' }
-        end
-        route_param :id do
+          desc 'Delete user'
           delete do
             user = User.find(params[:id])
             if owner?(user)
@@ -64,13 +58,10 @@ module ApiBambook
               { status: :no_access }
             end
           end
-        end
 
-        desc 'Return list of user books'
-        route_param :id do
+          desc 'Return list of user books'
           get '/books' do
-            user = User.find(params[:id])
-            user_books = Book.where(user_id: user.id)
+            user_books = User.find(params[:id]).books
             present user_books, with: ApiBambook::Entities::BooksEntity
           end
         end
