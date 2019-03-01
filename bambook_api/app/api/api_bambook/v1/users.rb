@@ -10,7 +10,7 @@ module ApiBambook
 
         desc 'Create a new user.'
         params do
-          requires :email, type: String
+          requires :email, type: String, regexp: User::EMAIL_REGEXP
           requires :password, type: String
         end
         post do
@@ -24,7 +24,7 @@ module ApiBambook
 
         desc 'LogIn.'
         params do
-          requires :email, type: String
+          requires :email, type: String, regexp: User::EMAIL_REGEXP
           requires :password, type: String
         end
         post '/login' do
@@ -48,21 +48,35 @@ module ApiBambook
             present user, with: ApiBambook::Entities::UsersEntity
           end
 
-          desc 'Delete user'
-          delete do
-            user = User.find(params[:id])
-            if owner?(user)
-              user.destroy
-              { status: :deleted }
-            else
-              { status: :no_access }
-            end
-          end
-
           desc 'Return list of user books'
           get '/books' do
             user_books = User.find(params[:id]).books
             present user_books, with: ApiBambook::Entities::BooksEntity
+          end
+
+          desc 'Update user'
+          params do
+            requires :user, type: Hash do
+              optional :email, type: String, allow_blank: false
+              optional :password, type: String, allow_blank: false
+            end
+          end
+          put do
+            user = User.find(params[:id])
+            authorize user, :update?
+            if user.update(declared_params[:user])
+              present user, with: ApiBambook::Entities::UsersEntity
+            else
+              error!(user.errors.messages, 422)
+            end
+          end
+
+          desc 'Delete user'
+          delete do
+            user = User.find(params[:id])
+            authorize user, :destroy?
+            user.destroy
+            { status: :deleted }
           end
         end
       end

@@ -11,6 +11,10 @@ module ApiBambook
         !current_user.nil?
       end
 
+      def authenticate!
+        authorize User, :authenticate?
+      end
+
       # Returns true if the given user is the current user.
       def owner?(user)
         user == current_user

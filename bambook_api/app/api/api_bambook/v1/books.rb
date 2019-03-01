@@ -19,21 +19,18 @@ module ApiBambook
           requires :book_file, type: File
         end
         post do
-          if logged_in?
-            book = @current_user.books.new(declared_params[:book])
-            if book.valid?
-              attach_files = book.attachment_manager(params, book)
-              if book.cover_photo.attached? && book.book_file.attached?
-                book.save
-                present book, with: ApiBambook::Entities::BooksEntity
-              else
-                attach_files
-              end
+          authenticate!
+          book = @current_user.books.new(declared_params[:book])
+          if book.valid?
+            attach_files = book.attachment_manager(params, book)
+            if book.cover_photo.attached? && book.book_file.attached?
+              book.save
+              present book, with: ApiBambook::Entities::BooksEntity
             else
-              { error: book.errors.messages }
+              error!(attach_files, 422)
             end
           else
-            { status: :not_registered }
+            error!(book.errors.messages, 422)
           end
         end
 
@@ -55,6 +52,7 @@ module ApiBambook
             optional :book_file, type: File, allow_blank: false
           end
           put do
+            authenticate!
             book = current_user.books.find(params[:book_id])
             book if book.update(declared_params[:book])
             book.attachment_manager(params, book)
@@ -63,6 +61,7 @@ module ApiBambook
 
           desc 'Delete a specific book'
           delete do
+            authenticate!
             current_user.books.find(params[:book_id]).destroy
             { status: :deleted }
           end
@@ -75,19 +74,36 @@ module ApiBambook
             requires :rating, type: Integer
           end
           post '/reviews' do
-            book = Book.find(params[:id])
-            if logged_in?
-              review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: current_user.id)
-              present review, with: ApiBambook::Entities::ReviewsEntity
-            else
-              { status: :not_registered }
-            end
+            authenticate!
+            book = Book.find(params[:book_id])
+            review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: current_user.id)
+            present review, with: ApiBambook::Entities::ReviewsEntity
           end
 
           desc 'Get reviews of specific book'
           get '/reviews' do
             reviews = Book.find(params[:book_id]).reviews
             present reviews, with: ApiBambook::Entities::ReviewsEntity
+          end
+
+          route_param :review_id do
+            desc 'Delete a specific review'
+            delete '/reviews' do
+              authenticate!
+              current_user.reviews.find(params[:review_id]).destroy
+              { status: :deleted }
+            end
+
+            params do
+              optional :comment, type: String
+              optional :rating, type: Integer
+            end
+            put '/reviews' do
+              authenticate!
+              review = current_user.reviews.find(params[:review_id])
+              review if review.update(comment: params[:comment], rating: params[:rating])
+              present review, with: ApiBambook::Entities::ReviewsEntity
+            end
           end
         end
       end
