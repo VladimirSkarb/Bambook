@@ -1,6 +1,7 @@
 module ApiBambook
   class Base < Grape::API
     prefix :api
+    include Pundit
 
     mount ApiBambook::V1::Main
 

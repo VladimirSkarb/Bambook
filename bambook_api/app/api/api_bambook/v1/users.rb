@@ -10,22 +10,21 @@ module ApiBambook
 
         desc 'Create a new user.'
         params do
-          requires :email, type: String
+          requires :email, type: String, regexp: User::EMAIL_REGEXP
           requires :password, type: String
-          #requires :password_confirmation, type: String
         end
-        post '/register' do
+        post do
           user = User.new(email: params[:email], password: params[:password])
           if user.save
             present user, with: ApiBambook::Entities::UsersEntity
           else
-            { error: user.errors.messages }
+            error!(user.errors.messages, 422)
           end
         end
 
         desc 'LogIn.'
         params do
-          requires :email, type: String
+          requires :email, type: String, regexp: User::EMAIL_REGEXP
           requires :password, type: String
         end
         post '/login' do
@@ -38,40 +37,46 @@ module ApiBambook
               message: 'Login Successful'
             }
           else
-            error!('message', 404)
+            error!(command.errors, 404)
           end
         end
 
-        desc 'Return a specific user'
         route_param :id do
+          desc 'Return a specific user'
           get do
             user = User.find(params[:id])
             present user, with: ApiBambook::Entities::UsersEntity
           end
-        end
 
-        desc 'Delete user'
-        params do
-          optional :Authorization, type: String, documentation: { param_type: 'header' }
-        end
-        route_param :id do
-          delete do
-            user = User.find(params[:id])
-            if is_owner(user)
-              user.destroy
-              { status: :deleted }
-            else
-              { status: :no_access }
+          desc 'Return list of user books'
+          get '/books' do
+            user_books = User.find(params[:id]).books
+            present user_books, with: ApiBambook::Entities::BooksEntity
+          end
+
+          desc 'Update user'
+          params do
+            requires :user, type: Hash do
+              optional :email, type: String, allow_blank: false
+              optional :password, type: String, allow_blank: false
             end
           end
-        end
-
-        desc 'Return list of user books'
-        route_param :id do
-          get '/books' do
+          put do
             user = User.find(params[:id])
-            user_books = Book.where(user_id: user.id)
-            present user_books, with: ApiBambook::Entities::BooksEntity
+            authorize user, :update?
+            if user.update(declared_params[:user])
+              present user, with: ApiBambook::Entities::UsersEntity
+            else
+              error!(user.errors.messages, 422)
+            end
+          end
+
+          desc 'Delete user'
+          delete do
+            user = User.find(params[:id])
+            authorize user, :destroy?
+            user.destroy
+            { status: :deleted }
           end
         end
       end
