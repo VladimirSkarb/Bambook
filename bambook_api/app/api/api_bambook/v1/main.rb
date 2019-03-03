@@ -6,6 +6,7 @@ module ApiBambook
 
       helpers ApiBambook::Helpers::MainHelper
       helpers ApiBambook::Helpers::SessionsHelper
+      helpers Pundit
 
       rescue_from ActiveRecord::RecordInvalid,
                   ExceptionHandler::MissingToken,
@@ -15,7 +16,7 @@ module ApiBambook
                   ExceptionHandler::AuthenticationError, ->(error) { four_twenty_two!(error) }
 
       rescue_from ActiveRecord::RecordNotFound, ->(error) { record_not_found!(error) }
-      # rescue_from Pundit::NotAuthorizedError, with: :access_denied
+      rescue_from Pundit::NotAuthorizedError, ->(error) { access_denied!(error) }
 
       before { current_user }
 

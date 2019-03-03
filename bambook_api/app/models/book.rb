@@ -11,8 +11,8 @@ class Book < ApplicationRecord
     cover_photo = image_converter(File.open(params[:cover_photo][:tempfile].path))
     book.cover_photo.attach(io: File.open(cover_photo.path), filename: cover_photo.path.split('/').last)
     book.book_file.attach(io: uploaded_book_file, filename: params[:book_file][:filename])
-  rescue StandardError
-    { status: 'The book or cover photo was not upload. Please doublecheck it' }
+  rescue
+    { message: 'The book or cover photo was not upload. Please doublecheck it' }
   end
 
   def product_image_url
