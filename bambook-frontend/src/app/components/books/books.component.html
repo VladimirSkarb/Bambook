@@ -1,0 +1,24 @@
+<section class="books">
+  <h1 class="books__title">
+    {{title}}
+  </h1>
+  <div class="books__block" >
+    <figure class="block" *ngFor="let book of books">
+      <img src="{{ book.product_image_url }}" class="books__img" alt="{{ book.title }}">
+    </figure>
+  </div>
+  <!--<div class="books__block" >-->
+    <!--<figure class="block" *ngFor="let book of books">-->
+      <!--<img src="{{ book.product_image_url }}" class="books__img" alt="{{ book.title }}">-->
+      <!--<h2 class="block__title">Title: {{ book.title }}</h2>-->
+      <!--<h3>Author: {{ book.author }}</h3>-->
+      <!--&lt;!&ndash;<p>Description: {{ book.description }}</p>&ndash;&gt;-->
+    <!--</figure>-->
+  <!--</div>-->
+<!-- <div *ngFor="let book of books"> Title: {{ book.title }}  || Author: {{ book.author }} || Description: {{ book.description }} <a href="{{ book.product_image_url }}" download></a>  <img src="{{ book.product_image_url }}" class="preview">
+  </div> -->
+
+<!--<a href="http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19&#45;&#45;f0925ce0cf9224017875dc95d9467395d8f95cef/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20%D0%BE%D1%82%202019-01-06%2021-02-26.png" download>-->
+  <!--<img src="http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19&#45;&#45;f0925ce0cf9224017875dc95d9467395d8f95cef/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20%D0%BE%D1%82%202019-01-06%2021-02-26.png" alt="W3Schools" width="104" height="142">-->
+<!--</a>-->
+</section>
