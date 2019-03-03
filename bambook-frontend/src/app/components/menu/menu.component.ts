@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {JwtService} from '../../jwt.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private jwtService: JwtService) { }
+
+  logout() {
+    console.log('logout')
+    this.jwtService.logout();
+  }
+
+  public get loggedIn(): boolean {
+    return localStorage.getItem('access_token') !==  null;
+  }
 
   ngOnInit() {
   }
