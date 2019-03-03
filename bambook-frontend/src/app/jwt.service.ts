@@ -15,7 +15,7 @@ export class JwtService {
   }
 
   register(user) {
-    return this.httpClient.post<{access_token: string}>('http://localhost:3000/api/v1/users/register', user).pipe(tap(res => {
+    return this.httpClient.post<{access_token: string}>('http://localhost:3000/api/v1/users', user).pipe(tap(res => {
       // this.login(user)
     }))
   }

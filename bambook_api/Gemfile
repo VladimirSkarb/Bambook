@@ -12,6 +12,7 @@ gem 'grape-swagger-entity'
 gem 'grape-swagger-rails'
 gem 'jwt'
 gem 'mini_magick'
+gem 'pundit'
 gem 'simple_command'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

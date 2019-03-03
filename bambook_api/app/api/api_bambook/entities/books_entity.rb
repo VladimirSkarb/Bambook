@@ -7,6 +7,7 @@ module ApiBambook
       expose :description
       expose :product_image_url
       expose :download_book_url
+      expose :user_id
     end
   end
 end
