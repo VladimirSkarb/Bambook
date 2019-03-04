@@ -8,7 +8,7 @@ module ApiBambook
         end
         get do
           users = User.all.page params[:page]
-          present paginate(users), with: ApiBambook::Entities::UsersEntity
+          present :users, paginate(users), with: ApiBambook::Entities::UsersEntity
         end
 
         desc 'Create a new user.'
@@ -19,7 +19,7 @@ module ApiBambook
         post do
           user = User.new(email: params[:email], password: params[:password])
           if user.save
-            present user, with: ApiBambook::Entities::UsersEntity
+            present :user, user, with: ApiBambook::Entities::UsersEntity
           else
             error!(user.errors.messages, 422)
           end
@@ -48,7 +48,7 @@ module ApiBambook
           desc 'Return a specific user'
           get do
             user = User.find(params[:id])
-            present user, with: ApiBambook::Entities::UsersEntity
+            present :user, user, with: ApiBambook::Entities::UsersEntity
           end
 
           desc 'Return list of user books'
@@ -57,7 +57,7 @@ module ApiBambook
           end
           get '/books' do
             user_books = User.find(params[:id]).books.page params[:page]
-            present paginate(user_books), with: ApiBambook::Entities::BooksEntity
+            present :user_books, paginate(user_books), with: ApiBambook::Entities::BooksEntity
           end
 
           desc 'Update user'
@@ -71,7 +71,7 @@ module ApiBambook
             user = User.find(params[:id])
             authorize user, :update?
             if user.update(declared_params[:user], include_missing: false)
-              present user, with: ApiBambook::Entities::UsersEntity
+              present :user, user, with: ApiBambook::Entities::UsersEntity
             else
               error!(user.errors.messages, 422)
             end

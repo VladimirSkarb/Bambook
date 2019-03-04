@@ -3,7 +3,7 @@
     {{title}}
   </h1>
   <div class="books__block" >
-    <figure class="block" *ngFor="let book of books">
+    <figure class="block" *ngFor="let book of books.books">
       <img src="{{ book.product_image_url }}" class="books__img" alt="{{ book.title }}">
     </figure>
   </div>
