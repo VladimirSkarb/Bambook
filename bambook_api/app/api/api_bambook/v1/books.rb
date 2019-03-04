@@ -3,9 +3,12 @@ module ApiBambook
     class Books < Main
       resource :books do
         desc 'Return list of books'
+        params do
+          optional :page, type: Integer, default: 1
+        end
         get do
-          books = Book.all
-          present books, with: ApiBambook::Entities::BooksEntity
+          books = Book.all.page params[:page]
+          present paginate(books), with: ApiBambook::Entities::BooksEntity
         end
 
         desc 'Create a new book'
@@ -54,7 +57,7 @@ module ApiBambook
           put do
             authenticate!
             book = current_user.books.find(params[:book_id])
-            book if book.update(declared_params[:book])
+            book if book.update(declared_params[:book], include_missing: false)
             book.attachment_manager(params, book)
             present book, with: ApiBambook::Entities::BooksEntity
           end
@@ -71,7 +74,7 @@ module ApiBambook
           desc 'Create review for a specific book'
           params do
             requires :comment, type: String
-            requires :rating, type: Integer
+            requires :rating, type: Integer, values: 1..5, desc: 'Value between 1..5'
           end
           post '/reviews' do
             authenticate!
@@ -81,9 +84,12 @@ module ApiBambook
           end
 
           desc 'Get reviews of specific book'
+          params do
+            optional :page, type: Integer, default: 1
+          end
           get '/reviews' do
-            reviews = Book.find(params[:book_id]).reviews
-            present reviews, with: ApiBambook::Entities::ReviewsEntity
+            reviews = Book.find(params[:book_id]).reviews.page params[:page]
+            present paginate(reviews), with: ApiBambook::Entities::ReviewsEntity
           end
 
           route_param :review_id do

@@ -3,9 +3,12 @@ module ApiBambook
     class Users < Main
       resource :users do
         desc 'Return list of users'
+        params do
+          optional :page, type: Integer, default: 1
+        end
         get do
-          users = User.all
-          present users, with: ApiBambook::Entities::UsersEntity
+          users = User.all.page params[:page]
+          present paginate(users), with: ApiBambook::Entities::UsersEntity
         end
 
         desc 'Create a new user.'
@@ -49,9 +52,12 @@ module ApiBambook
           end
 
           desc 'Return list of user books'
+          params do
+            optional :page, type: Integer, default: 1
+          end
           get '/books' do
-            user_books = User.find(params[:id]).books
-            present user_books, with: ApiBambook::Entities::BooksEntity
+            user_books = User.find(params[:id]).books.page params[:page]
+            present paginate(user_books), with: ApiBambook::Entities::BooksEntity
           end
 
           desc 'Update user'
@@ -64,7 +70,7 @@ module ApiBambook
           put do
             user = User.find(params[:id])
             authorize user, :update?
-            if user.update(declared_params[:user])
+            if user.update(declared_params[:user], include_missing: false)
               present user, with: ApiBambook::Entities::UsersEntity
             else
               error!(user.errors.messages, 422)
