@@ -5,7 +5,7 @@ module ApiBambook
         desc 'Return list of books'
         get do
           books = Book.all
-          present books, with: ApiBambook::Entities::BooksEntity
+          present :books, books, with: ApiBambook::Entities::BooksEntity
         end
 
         desc 'Create a new book'
@@ -25,7 +25,7 @@ module ApiBambook
             attach_files = book.attachment_manager(params, book)
             if book.cover_photo.attached? && book.book_file.attached?
               book.save
-              present book, with: ApiBambook::Entities::BooksEntity
+              present :book, book, with: ApiBambook::Entities::BooksEntity
             else
               error!(attach_files, 422)
             end
@@ -38,7 +38,7 @@ module ApiBambook
           desc 'Return a specific book'
           get do
             book = Book.find(params[:book_id])
-            present book, with: ApiBambook::Entities::BooksEntity
+            present :book, book, with: ApiBambook::Entities::BooksEntity
           end
 
           desc 'Update a specific book'
@@ -54,9 +54,9 @@ module ApiBambook
           put do
             authenticate!
             book = current_user.books.find(params[:book_id])
-            book if book.update(declared_params[:book])
+            book if book.update(declared_params[:book], include_missing: false)
             book.attachment_manager(params, book)
-            present book, with: ApiBambook::Entities::BooksEntity
+            present :book, book, with: ApiBambook::Entities::BooksEntity
           end
 
           desc 'Delete a specific book'
@@ -77,13 +77,13 @@ module ApiBambook
             authenticate!
             book = Book.find(params[:book_id])
             review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: current_user.id)
-            present review, with: ApiBambook::Entities::ReviewsEntity
+            present :review, review, with: ApiBambook::Entities::ReviewsEntity
           end
 
           desc 'Get reviews of specific book'
           get '/reviews' do
             reviews = Book.find(params[:book_id]).reviews
-            present reviews, with: ApiBambook::Entities::ReviewsEntity
+            present :review, review, with: ApiBambook::Entities::ReviewsEntity
           end
 
           route_param :review_id do
@@ -102,7 +102,7 @@ module ApiBambook
               authenticate!
               review = current_user.reviews.find(params[:review_id])
               review if review.update(comment: params[:comment], rating: params[:rating])
-              present review, with: ApiBambook::Entities::ReviewsEntity
+              present :review, review, with: ApiBambook::Entities::ReviewsEntity
             end
           end
         end
