@@ -41,7 +41,9 @@ module ApiBambook
           desc 'Return a specific book'
           get do
             book = Book.find(params[:book_id])
+            rating = book.reviews.average(:rating)&.round
             present :book, book, with: ApiBambook::Entities::BooksEntity
+            present :rating, rating, with: ApiBambook::Entities::BooksRatingEntity, :rating => rating
           end
 
           desc 'Update a specific book'
@@ -57,7 +59,7 @@ module ApiBambook
           put do
             authenticate!
             book = current_user.books.find(params[:book_id])
-            book if book.update(declared_params[:book], include_missing: false)
+            book if book.update(declared_params[:book])
             book.attachment_manager(params, book)
             present :book, book, with: ApiBambook::Entities::BooksEntity
           end
@@ -79,8 +81,12 @@ module ApiBambook
           post '/reviews' do
             authenticate!
             book = Book.find(params[:book_id])
-            review = book.reviews.create(comment: params[:comment], rating: params[:rating], user_id: current_user.id)
-            present :review, review, with: ApiBambook::Entities::ReviewsEntity
+            review = book.reviews.new(comment: params[:comment], rating: params[:rating], user_id: current_user.id)
+            if review.save
+              present :review, review, with: ApiBambook::Entities::ReviewsEntity
+            else
+              error!(review.errors.messages, 422)
+            end
           end
 
           desc 'Get reviews of specific book'
@@ -101,13 +107,15 @@ module ApiBambook
             end
 
             params do
-              optional :comment, type: String
-              optional :rating, type: Integer
+              requires :review, type: Hash do
+                optional :comment, type: String, allow_blank: false
+                optional :rating, type: Integer, values: 1..5, desc: 'Value between 1..5', allow_blank: false
+              end
             end
             put '/reviews' do
               authenticate!
               review = current_user.reviews.find(params[:review_id])
-              review if review.update(comment: params[:comment], rating: params[:rating])
+              review if review.update(declared_params[:review])
               present :review, review, with: ApiBambook::Entities::ReviewsEntity
             end
           end
