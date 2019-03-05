@@ -17,21 +17,15 @@ module ApiBambook
             requires :title, type: String
             requires :description, type: String
             requires :author, type: String
+            requires :cover_photo, type: File
+            requires :book_file, type: File
           end
-          requires :cover_photo, type: File
-          requires :book_file, type: File
         end
         post do
           authenticate!
           book = @current_user.books.new(declared_params[:book])
-          if book.valid?
-            attach_files = book.attachment_manager(params, book)
-            if book.cover_photo.attached? && book.book_file.attached?
-              book.save
-              present :book, book, with: ApiBambook::Entities::BooksEntity
-            else
-              error!(attach_files, 422)
-            end
+          if book.save
+            present :book, book, with: ApiBambook::Entities::BooksEntity
           else
             error!(book.errors.messages, 422)
           end
@@ -43,24 +37,23 @@ module ApiBambook
             book = Book.find(params[:book_id])
             rating = book.reviews.average(:rating)&.round
             present :book, book, with: ApiBambook::Entities::BooksEntity
-            present :rating, rating, with: ApiBambook::Entities::BooksRatingEntity, :rating => rating
+            present :rating, rating, with: ApiBambook::Entities::BooksRatingEntity, rating: rating
           end
 
           desc 'Update a specific book'
           params do
             requires :book, type: Hash do
-              optional :title, type: String, allow_blank: false
-              optional :description, type: String, allow_blank: false
-              optional :author, type: String, allow_blank: false
+              optional :title, type: String
+              optional :description, type: String
+              optional :author, type: String
+              optional :cover_photo, type: File
+              optional :book_file, type: File
             end
-            optional :cover_photo, type: File, allow_blank: false
-            optional :book_file, type: File, allow_blank: false
           end
           put do
             authenticate!
             book = current_user.books.find(params[:book_id])
             book if book.update(declared_params[:book])
-            book.attachment_manager(params, book)
             present :book, book, with: ApiBambook::Entities::BooksEntity
           end
 

@@ -7,9 +7,9 @@ module ApiBambook
       expose :title
       expose :author
       expose :description
-      expose :product_image_url
-      expose :download_book_url
       expose :user_id
+      expose :cover_photo
+      expose :book_file
 
       with_options(format_with: :iso_timestamp) do
         expose :created_at
