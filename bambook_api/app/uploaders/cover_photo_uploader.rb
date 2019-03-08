@@ -8,6 +8,6 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [300, 300]
 
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 end

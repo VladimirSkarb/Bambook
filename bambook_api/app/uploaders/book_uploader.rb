@@ -7,6 +7,6 @@ class BookUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
-    %w(fb2 pdf doc djvu txt)
+    %w[fb2 pdf doc djvu txt]
   end
 end
