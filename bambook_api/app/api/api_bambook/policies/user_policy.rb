@@ -1,5 +1,4 @@
 class UserPolicy < ApplicationPolicy
-
   def authenticate?
     user.present?
   end
