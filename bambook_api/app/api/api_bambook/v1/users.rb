@@ -36,11 +36,11 @@ module ApiBambook
             present
 
             {
-              access_token: command.result,
+              access_token: command.access_token,
               message: 'Login Successful'
             }
           else
-            error!(command.errors, 404)
+            error!('Invalid credentials', 401)
           end
         end
 
