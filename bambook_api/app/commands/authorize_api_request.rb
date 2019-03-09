@@ -20,6 +20,7 @@ class AuthorizeApiRequest
 
   def decoded_auth_token
     return unless http_auth_header
+
     @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
   end
 
