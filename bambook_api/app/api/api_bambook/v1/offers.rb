@@ -61,7 +61,7 @@ module ApiBambook
             requires :offer_id, type: String
             requires :user_id,  type: String
           end
-          post '/offer_subscriptions' do
+          post '/subscriptions' do
             authenticate!
             offer = Offer.find(params[:offer_id])
             offer_subscription = offer.offer_subscriptions.build(user: current_user)
@@ -73,14 +73,14 @@ module ApiBambook
           end
 
           desc 'Get offer_subscriptions of specific offer'
-          get '/offer_subscriptions' do
+          get '/subscriptions' do
             offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions
             present :offer_subscriptions, offer_subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
           end
 
           route_param :offer_subscription_id do
             desc 'Delete a specific offer_subscription'
-            delete '/offer_subscription' do
+            delete '/subscription' do
               authenticate!
               offer.offer_subscriptions.find(params[:offer_subscription_id]).destroy
               { status: :deleted }
@@ -89,10 +89,10 @@ module ApiBambook
             params do
               requires :offer_subscription, type: Hash do
                 optional :user_id, type: String
-                optional :offer_id, type:String
+                optional :offer_id, type: String
               end
             end
-            put '/offer_subscriptions' do
+            put '/subscriptions' do
               authenticate!
               offer_subscription = offer.offer_subscriptions.find(params[:offer_subscription_id])
               offer_subscription if offer_subscription.update(declared_params[:offer_subscription])
