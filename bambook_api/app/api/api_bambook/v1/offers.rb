@@ -15,6 +15,7 @@ module ApiBambook
             requires :minimum_quantity, type: Integer
           end
         end
+
         post do
           authenticate!
           offer = @current_user.offers.new(declared_params[:offer])
@@ -37,6 +38,70 @@ module ApiBambook
             authenticate!
             @current_user.offers.find(params[:offer_id]).destroy
             { status: :deleted }
+          end
+
+          desc 'Update offer'
+
+          params do
+            requires :offer, type: Hash do
+              optional :deadline, type: Date
+              optional :link, type: String
+              optional :minimum_quantity, type: Integer
+              optional :user_id, type: Integer
+            end
+          end
+
+          put do
+            authenticate!
+            offer = @current_user.offers.find(params[:offer_id])
+            offer if offer.update(declared_params[:offer])
+            present :offer, offer, with: ApiBambook::Entities::OffersEntity
+          end
+          # Operations with offer_subscriptions
+
+          desc 'Create offer_subscription for a specific offer'
+          params do
+            requires :offer_id, type: String
+            requires :user_id,  type: String
+          end
+          post '/offer_subscriptions' do
+            authenticate!
+            offer = Offer.find(params[:offer_id])
+            offer_subscription = offer.offer_subscriptions.new(:user_id current_user.id)
+            if offer_subscription.save
+              present :offer_subscription, offer_subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
+            else
+              error!(offer_subscription.errors.messages, 422)
+            end
+          end
+
+          desc 'Get offer_subscriptions of specific offer'
+
+          get '/offer_subscriptions' do
+            offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions.all
+            present :offer_subscriptions, offer_subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
+          end
+
+          route_param :offer_subscription_id do
+            desc 'Delete a specific offer_subscription'
+            delete '/offer_subscription' do
+              authenticate!
+              offer.offer_subscriptions.find(params[:offer_subscription_id]).destroy
+              { status: :deleted }
+            end
+
+            params do
+              requires :offer_subscription, type: Hash do
+                optional :user_id, type: String
+                optional :offer_id, type:String
+              end
+            end
+            put '/offer_subscriptions' do
+              authenticate!
+              offer_subscription = offer.offer_subscriptions.find(params[:offer_subscription_id])
+              offer_subscription if offer_subscription.update(declared_params[:offer_subscription])
+              present :offer_subscription, offer_subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
+            end
           end
         end
       end
