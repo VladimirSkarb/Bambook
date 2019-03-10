@@ -17,11 +17,13 @@ module ApiBambook
         end
         post do
           authenticate!
-          offer = @current_user.offers.new(declared_params[:offer])
-          if offer.save
-            present :offer, offer, with: ApiBambook::Entities::OffersEntity
+          result = PlaceOffer.call(params: declared_params[:offer], user: current_user)
+
+          if result.success?
+            present :offer, result.offer, with: ApiBambook::Entities::OffersEntity
+            present :offer_subscriptions, result.subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
           else
-            error!(offer.errors.messages, 422)
+            error!(result.errors, 422)
           end
         end
 
