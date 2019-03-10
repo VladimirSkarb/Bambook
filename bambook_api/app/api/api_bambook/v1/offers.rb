@@ -85,19 +85,6 @@ module ApiBambook
               offer.offer_subscriptions.find(params[:offer_subscription_id]).destroy
               { status: :deleted }
             end
-
-            params do
-              requires :offer_subscription, type: Hash do
-                optional :user_id, type: String
-                optional :offer_id, type: String
-              end
-            end
-            put '/subscriptions' do
-              authenticate!
-              offer_subscription = offer.offer_subscriptions.find(params[:offer_subscription_id])
-              offer_subscription if offer_subscription.update(declared_params[:offer_subscription])
-              present :offer_subscription, offer_subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
-            end
           end
         end
       end
