@@ -41,16 +41,13 @@ module ApiBambook
           end
 
           desc 'Update offer'
-
           params do
             requires :offer, type: Hash do
               optional :deadline, type: Date
               optional :link, type: String
               optional :minimum_quantity, type: Integer
-              optional :user_id, type: Integer
             end
           end
-
           put do
             authenticate!
             offer = @current_user.offers.find(params[:offer_id])
@@ -67,7 +64,7 @@ module ApiBambook
           post '/offer_subscriptions' do
             authenticate!
             offer = Offer.find(params[:offer_id])
-            offer_subscription = offer.offer_subscriptions.new(:user_id current_user.id)
+            offer_subscription = offer.offer_subscriptions.build(user: current_user)
             if offer_subscription.save
               present :offer_subscription, offer_subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
             else
@@ -76,9 +73,8 @@ module ApiBambook
           end
 
           desc 'Get offer_subscriptions of specific offer'
-
           get '/offer_subscriptions' do
-            offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions.all
+            offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions
             present :offer_subscriptions, offer_subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
           end
 
