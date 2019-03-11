@@ -4,6 +4,8 @@ class CreateOffer
   def call
     user = context.user
     offer = user.offers.new(context.params)
+    offer.status = 0
+
     if offer.save
       context.offer = offer
     else
