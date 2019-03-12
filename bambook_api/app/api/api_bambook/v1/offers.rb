@@ -23,7 +23,7 @@ module ApiBambook
 
           if result.success?
             present :offer, result.offer, with: ApiBambook::Entities::OffersEntity
-            present :offer_subscriptions, result.subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
+            present :offer_subscription, result.subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
           else
             error!(result.errors, 422)
           end
@@ -65,11 +65,12 @@ module ApiBambook
           post '/subscriptions' do
             authenticate!
             offer = Offer.find(params[:offer_id])
-            offer_subscription = offer.offer_subscriptions.build(user: current_user)
-            if offer_subscription.save
-              present :offer_subscription, offer_subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
+            result = SubscribeOffer.call(user: current_user, offer: offer)
+
+            if result.success?
+              present :offer_subscription, result.subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
             else
-              error!(offer_subscription.errors.messages, 422)
+              error!(result.errors, 422)
             end
           end
 
