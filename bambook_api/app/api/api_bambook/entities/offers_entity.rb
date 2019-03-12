@@ -6,6 +6,10 @@ module ApiBambook
       expose :link
       expose :minimum_quantity
       expose :user_id
+      expose :avatar
+      expose :author
+      expose :title
+      expose :price
       expose :status
     end
   end

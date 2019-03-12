@@ -1,5 +1,6 @@
 class PlaceOffer
   include Interactor::Organizer
-
-  organize CreateOffer, CreateOfferSubscription
+  # TODO: refactoring
+  # organize ParseData, CreateOffer, FreezeMoney, CreateOfferSubscription
+  organize ParseData, CreateOffer, CreateOfferSubscription
 end

@@ -1,8 +1,8 @@
 class Offer < ApplicationRecord
   belongs_to :user
   has_many :offer_subscriptions, dependent: :destroy
-  validates :deadline, :link, :minimum_quantity, presence: true
-  
+  validates :deadline, :link, :minimum_quantity, :avatar, :author, :price, :title, presence: true
+
   enum status: {
     waiting: 0,
     closed: 1,
