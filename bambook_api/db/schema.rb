@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_174127) do
+ActiveRecord::Schema.define(version: 2019_03_12_184222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "balance_recharges", force: :cascade do |t|
+    t.integer "amount", default: 0
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "wallet_id"
+    t.index ["wallet_id"], name: "index_balance_recharges_on_wallet_id"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -88,6 +97,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_174127) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "balance_recharges", "wallets"
   add_foreign_key "books", "users"
   add_foreign_key "money_transactions", "wallets"
   add_foreign_key "offer_subscriptions", "offers"
