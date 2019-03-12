@@ -6,7 +6,7 @@ class CreateOfferSubscription
     offer_subscription = offer.offer_subscriptions.build(user: context.user)
 
     if offer_subscription.save
-      context.subscriptions = offer_subscription
+      context.subscription = offer_subscription
     else
       context.errors = offer_subscription.errors.messages
       context.fail!
