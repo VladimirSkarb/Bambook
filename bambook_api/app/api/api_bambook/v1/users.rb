@@ -19,7 +19,9 @@ module ApiBambook
         post do
           user = User.new(email: params[:email], password: params[:password])
           if user.save
+            wallet = Wallet.create(user: user)
             present :user, user, with: ApiBambook::Entities::UsersEntity
+            present :wallet, wallet, with: ApiBambook::Entities::WalletsEntity
           else
             error!(user.errors.messages, 422)
           end
