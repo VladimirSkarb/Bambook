@@ -2,10 +2,13 @@ class YakabooParser
   include Interactor
 
   def call
-    # Fake data
-    context.params[:price] = 200
-    context.params[:avatar] = 'https://img.yakaboo.ua/media/catalog/product/cache/1/image/398x565/234c7c011ba026e66d29567e1be1d1f7/4/8/48280_78694.jpg'
-    context.params[:title] = 'Origin'
-    context.params[:author] = 'Dan Brown'
+    MainParser.call(context)
+    parsed_content = context.parsed_content
+
+    context.params[:title] = parsed_content.css('#product-title > h1').inner_html
+    context.params[:avatar] = parsed_content.css('#image').attr('src').text
+    context.params[:price] = parsed_content.css('#price_stock_placeholder-top').text.gsub(/[^0-9]/, '').to_i
+    context.params[:author] = parsed_content.css('div.product-attributes.product-attributes_short a').first.text
+    context.delete_field(:parsed_content)
   end
 end
