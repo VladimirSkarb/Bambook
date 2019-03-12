@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     return true if user.present? && user == article
   end
 
+  def user_profile?
+    return true if user.present? && user == article
+  end
+
   private
 
   def article

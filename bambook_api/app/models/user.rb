@@ -7,5 +7,6 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :offers, dependent: :destroy
-  has_many :offer_subscriptions
+  has_many :offer_subscriptions, dependent: :destroy
+  has_one :wallet, dependent: :destroy
 end

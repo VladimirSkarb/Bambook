@@ -2,6 +2,7 @@ module ApiBambook
   module V1
     class Offers < Main
       resource :offers do
+        desc 'Get all offers'
         get do
           offers = Offer.all
           present offers, with: ApiBambook::Entities::OffersEntity
@@ -56,12 +57,10 @@ module ApiBambook
             offer if offer.update(declared_params[:offer])
             present :offer, offer, with: ApiBambook::Entities::OffersEntity
           end
-          # Operations with offer_subscriptions
 
           desc 'Create offer_subscription for a specific offer'
           params do
             requires :offer_id, type: String
-            requires :user_id,  type: String
           end
           post '/subscriptions' do
             authenticate!
