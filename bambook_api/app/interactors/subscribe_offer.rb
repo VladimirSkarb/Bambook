@@ -1,5 +1,5 @@
 class SubscribeOffer
   include Interactor::Organizer
 
-  organize FreezeMoney, CreateOfferSubscription
+  organize FreezeMoney, CreateTransaction, CreateOfferSubscription
 end
