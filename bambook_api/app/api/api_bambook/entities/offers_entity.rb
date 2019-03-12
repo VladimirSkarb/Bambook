@@ -10,6 +10,7 @@ module ApiBambook
       expose :author
       expose :title
       expose :price
+      expose :contribution
       expose :status
     end
   end
