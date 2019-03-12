@@ -2,6 +2,17 @@ module ApiBambook
   module V1
     class Users < Main
       resource :users do
+
+        desc 'Fake Recharge balance'
+        params do
+          requires :sum, type: Integer, default: 100
+        end
+        get '/fake_recharge' do
+          authenticate!
+          current_user.wallet.update(available_money: params[:sum])
+          present :wallet, current_user.wallet, with: ApiBambook::Entities::WalletsEntity
+        end
+
         desc 'Return list of users'
         params do
           optional :page, type: Integer, default: 1
@@ -85,6 +96,14 @@ module ApiBambook
             authorize user, :destroy?
             user.destroy
             { status: :deleted }
+          end
+
+          desc 'User Profile'
+          get '/profile' do
+            user = User.find(params[:id])
+            authorize user, :user_profile?
+            present :user, user, with: ApiBambook::Entities::UsersEntity
+            present :wallet, user.wallet, with: ApiBambook::Entities::WalletsEntity
           end
         end
       end
