@@ -23,6 +23,7 @@ module ApiBambook
       mount ApiBambook::V1::Books
       mount ApiBambook::V1::Users
       mount ApiBambook::V1::Offers
+      mount ApiBambook::V1::UserProfile
     end
   end
 end

@@ -97,14 +97,6 @@ module ApiBambook
             user.destroy
             { status: :deleted }
           end
-
-          desc 'User Profile'
-          get '/profile' do
-            user = User.find(params[:id])
-            authorize user, :user_profile?
-            present :user, user, with: ApiBambook::Entities::UsersEntity
-            present :wallet, user.wallet, with: ApiBambook::Entities::WalletsEntity
-          end
         end
       end
     end
