@@ -2,6 +2,17 @@ module ApiBambook
   module V1
     class Users < Main
       resource :users do
+
+        desc 'Fake Recharge balance'
+        params do
+          requires :sum, type: Integer, default: 100
+        end
+        get '/fake_recharge' do
+          authenticate!
+          current_user.wallet.update(available_money: params[:sum])
+          present :wallet, current_user.wallet, with: ApiBambook::Entities::WalletsEntity
+        end
+
         desc 'Return list of users'
         params do
           optional :page, type: Integer, default: 1
@@ -19,7 +30,9 @@ module ApiBambook
         post do
           user = User.new(email: params[:email], password: params[:password])
           if user.save
+            wallet = Wallet.create(user: user)
             present :user, user, with: ApiBambook::Entities::UsersEntity
+            present :wallet, wallet, with: ApiBambook::Entities::WalletsEntity
           else
             error!(user.errors.messages, 422)
           end
@@ -36,11 +49,11 @@ module ApiBambook
             present
 
             {
-              access_token: command.result,
+              access_token: command.access_token,
               message: 'Login Successful'
             }
           else
-            error!(command.errors, 404)
+            error!('Invalid credentials', 401)
           end
         end
 

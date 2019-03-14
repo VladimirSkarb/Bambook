@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_123317) do
+ActiveRecord::Schema.define(version: 2019_03_12_184222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "balance_recharges", force: :cascade do |t|
+    t.integer "amount", default: 0
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "wallet_id"
+    t.index ["wallet_id"], name: "index_balance_recharges_on_wallet_id"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -25,6 +34,15 @@ ActiveRecord::Schema.define(version: 2019_03_07_123317) do
     t.string "cover_photo"
     t.string "book_file"
     t.index ["user_id"], name: "index_books_on_user_id"
+  end
+
+  create_table "money_transactions", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "operation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "wallet_id"
+    t.index ["wallet_id"], name: "index_money_transactions_on_wallet_id"
   end
 
   create_table "offer_subscriptions", force: :cascade do |t|
@@ -43,6 +61,12 @@ ActiveRecord::Schema.define(version: 2019_03_07_123317) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.integer "status"
+    t.string "avatar"
+    t.string "title"
+    t.string "author"
+    t.integer "price"
+    t.integer "contribution"
     t.index ["user_id"], name: "index_offers_on_user_id"
   end
 
@@ -64,10 +88,22 @@ ActiveRecord::Schema.define(version: 2019_03_07_123317) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.integer "available_money", default: 0
+    t.integer "frozen_money", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  add_foreign_key "balance_recharges", "wallets"
   add_foreign_key "books", "users"
+  add_foreign_key "money_transactions", "wallets"
   add_foreign_key "offer_subscriptions", "offers"
   add_foreign_key "offer_subscriptions", "users"
   add_foreign_key "offers", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
+  add_foreign_key "wallets", "users"
 end

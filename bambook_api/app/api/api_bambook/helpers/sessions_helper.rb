@@ -3,7 +3,7 @@ module ApiBambook
     module SessionsHelper
       # Returns the current logged-in user (if any).
       def current_user
-        @current_user ||= AuthorizeApiRequest.call(request.headers).result
+        @current_user ||= AuthorizeApiRequest.call(request.headers).user
       end
 
       # Returns true if the user is logged in, false otherwise.
