@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  mount ApiBambook::Base => '/'
+  mount ApiBambook::BaseApi => '/'
   mount GrapeSwaggerRails::Engine => '/swagger'
 end
