@@ -1,6 +1,6 @@
 module ApiBambook
   module V1
-    class Main < Base
+    class Main < BaseApi
       version 'v1', using: :path, parameter: 'api_bambook'
       format :json
 

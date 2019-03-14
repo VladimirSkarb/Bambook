@@ -1,5 +1,5 @@
 module ApiBambook
-  class Base < Grape::API
+  class BaseApi < Grape::API
     prefix :api
     include Pundit
     include Grape::Kaminari
