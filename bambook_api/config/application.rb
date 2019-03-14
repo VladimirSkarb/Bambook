@@ -23,6 +23,10 @@ module BambookApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
     config.autoload_paths += Dir["#{config.root}/app/api/**/**/"]
