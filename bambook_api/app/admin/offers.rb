@@ -7,6 +7,36 @@ ActiveAdmin.register Offer do
   scope :closed
   scope :sent
 
+  member_action :confirm_offer, :method=>:get do
+  end
+
+  action_item :confirm, only: :show do
+    link_to 'Confirm Offer', confirm_offer_admin_offer_path
+  end
+
+  controller do
+
+    def confirm_offer
+      offer = Offer.includes(:offer_subscriptions, :user).find(params[:id])
+      offer.update(status: 3)
+      current_contribution = ((offer.price / offer.offer_subscriptions.count) * 1.1).round(2)
+      returned_money = offer.contribution - current_contribution
+      offer_subscriptions = offer.offer_subscriptions.includes(:user)
+      offer_subscriptions.each do |subscription|
+        # update balance
+        updated_freeze_balance = subscription.user.wallet.frozen_money -= offer.contribution
+        updated_available_money = subscription.user.wallet.available_money += returned_money
+        subscription.user.wallet.update(frozen_money: updated_freeze_balance, available_money: updated_available_money)
+        # create money_transactions for return and write_of
+        CreateTransaction.call(user: subscription.user, operation_code: 3, offer_contribution: returned_money)
+        CreateTransaction.call(user: subscription.user, operation_code: 1, offer_contribution: current_contribution)
+      end
+
+      redirect_to admin_offer_url(offer), notice: "Offer was confirmed!"
+    end
+  end
+
+
   index do
     column :avatar do |x|
       image_tag x.avatar, width: 60, height: 80

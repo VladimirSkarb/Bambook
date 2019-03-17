@@ -3,7 +3,7 @@ class CreateTransaction
 
   def call
     operation_code = context.operation_code
-    amount = context.offer[:contribution]
+    amount = context.offer_contribution
     transaction = context.user.wallet.money_transactions.new(operation: operation_code, amount: amount)
 
     if transaction.save
