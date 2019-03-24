@@ -9,4 +9,5 @@ class User < ApplicationRecord
   has_many :offers, dependent: :destroy
   has_many :offer_subscriptions, dependent: :destroy
   has_one :wallet, dependent: :destroy
+  has_many :uploaded_offer_owners
 end
