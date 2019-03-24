@@ -70,8 +70,8 @@ ActiveAdmin.register Offer do
         updated_freeze_balance = subscription.user.wallet.frozen_money -= offer.contribution
         updated_available_money = subscription.user.wallet.available_money += offer.contribution
         subscription.user.wallet.update(frozen_money: updated_freeze_balance, available_money: updated_available_money)
-        # create money_transactions for return and write_of
-        CreateTransaction.call(user: subscription.user, operation_code: 3, offer_contribution: returned_money)
+        # create money_transactions for return
+        CreateTransaction.call(user: subscription.user, operation_code: 3, offer_contribution: offer.contribution)
       end
 
       redirect_to admin_offer_url(offer), notice: "Offer was closed!"
