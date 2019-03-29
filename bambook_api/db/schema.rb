@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_184222) do
+ActiveRecord::Schema.define(version: 2019_03_22_092827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
 
   create_table "balance_recharges", force: :cascade do |t|
     t.integer "amount", default: 0
@@ -21,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_184222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "wallet_id"
+    t.string "email"
     t.index ["wallet_id"], name: "index_balance_recharges_on_wallet_id"
   end
 
@@ -81,6 +108,23 @@ ActiveRecord::Schema.define(version: 2019_03_12_184222) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "uploaded_offer_owners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "uploaded_offer_id"
+    t.bigint "user_id"
+    t.index ["uploaded_offer_id"], name: "index_uploaded_offer_owners_on_uploaded_offer_id"
+    t.index ["user_id"], name: "index_uploaded_offer_owners_on_user_id"
+  end
+
+  create_table "uploaded_offers", force: :cascade do |t|
+    t.string "book_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "offer_id"
+    t.index ["offer_id"], name: "index_uploaded_offers_on_offer_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -105,5 +149,8 @@ ActiveRecord::Schema.define(version: 2019_03_12_184222) do
   add_foreign_key "offers", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
+  add_foreign_key "uploaded_offer_owners", "uploaded_offers"
+  add_foreign_key "uploaded_offer_owners", "users"
+  add_foreign_key "uploaded_offers", "offers"
   add_foreign_key "wallets", "users"
 end
