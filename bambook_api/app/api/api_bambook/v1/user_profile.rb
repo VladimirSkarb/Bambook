@@ -27,8 +27,17 @@ module ApiBambook
         desc 'get balance recharges '
         get '/recharges' do
           authenticate!
+          authorize current_user, :user_profile?
           recharges = current_user.wallet.balance_recharges
           present :recharges, recharges, with: ApiBambook::Entities::RechargesEntity
+        end
+
+        desc 'get user offers '
+        get '/offers' do
+          authenticate!
+          authorize current_user, :user_profile?
+          uploaded_offers = current_user.uploaded_offer_owners.map(&:uploaded_offer)
+          present uploaded_offers, with: ApiBambook::Entities::UploadedOffersEntity
         end
       end
     end
