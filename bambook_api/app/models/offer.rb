@@ -1,6 +1,6 @@
 class Offer < ApplicationRecord
   belongs_to :user
-  has_many :offer_subscriptions, dependent: :destroy, uniq: true
+  has_many :offer_subscriptions, dependent: :destroy
   has_one :uploaded_offer, dependent: :destroy
   validates :deadline, :link, :minimum_quantity, :avatar, :author, :price, :title, presence: true
 
