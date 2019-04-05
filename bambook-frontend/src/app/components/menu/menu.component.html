@@ -1,21 +1,19 @@
 <div class="img_header">
 
-  <nav class="header_menu" *ngIf="loggedIn==false">
-      <a class="menu__logo" href="/index.html">Bambook</a>
-      <!--<a class="menu_link" href="home">Home</a>-->
-      <a class="menu_link" href="books">BOOKS</a>
-      <a class="menu_link" href="">CATEGORIES</a>
-      <a class="menu_link" href="">OFFERS</a>
-      <a class="menu_link_right" href="auth/register">SIGN UP</a>
-      <a class="menu_link_right" href="auth/login">LOG IN</a>
-  </nav>
-
-  <nav class="header_menu" *ngIf="loggedIn">
+  <nav class="header_menu" *ngIf="this.auth.loggedIn==false">
     <a class="menu__logo" href="/index.html">Bambook</a>
     <a class="menu_link" href="books">BOOKS</a>
-    <a class="menu_link" href="">CATEGORIES</a>
     <a class="menu_link" href="">OFFERS</a>
-    <a class="menu_link_right" href="#" (click)="logout()">LOG OUT</a>
+    <a class="menu_link_right" href="auth/register">SIGN UP</a>
+    <a class="menu_link_right" href="auth/login">LOG IN</a>
+  </nav>
+
+  <nav class="header_menu" *ngIf="this.auth.loggedIn">
+    <a class="menu__logo" href="/index.html">Bambook</a>
+    <a class="menu_link" href="books">BOOKS</a>
+    <a class="menu_link" href="">OFFERS</a>
+    <a class="menu_link" href="books/add">Add Book</a>
+    <a class="menu_link_right" href="#" (click)="this.auth.logout()">LOG OUT</a>
     <a class="menu_link_right" href="">PROFILE</a>
   </nav>
 </div>
