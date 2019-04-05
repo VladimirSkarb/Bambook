@@ -1,14 +1,6 @@
-<app-menu></app-menu>
-<router-outlet></router-outlet>
-
-<!--Test loggedIn  and logout methods-->
-<!--<div class="logged_user" *ngIf="loggedIn">-->
-  <!--<h2>User loged In</h2>-->
-  <!--<button (click)="logout()">Logout</button>-->
-<!--</div>-->
-
-<!--<div class="logged_user" *ngIf="loggedIn==false">-->
-<!--<h2>Not registred</h2>-->
-    <!--<a routerLink="auth/login">Login</a><br>-->
-    <!--<a routerLink="auth/register">Register</a>-->
-<!--</div>-->
+<div class="menu">
+  <app-menu></app-menu>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
