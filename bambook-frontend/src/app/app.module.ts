@@ -23,14 +23,14 @@ import { BookComponent } from './components/books/book/book.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: function  tokenGetter() {
+        tokenGetter: function  tokenGetter()  {
           return     localStorage.getItem('access_token'); },
-        // whitelistedDomains: ['localhost:3000'],
         blacklistedRoutes: ['http://localhost:3000/api/v1/users/login', 'http://localhost:3000/api/v1/users/register']
       }
     })

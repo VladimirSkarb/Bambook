@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +6,8 @@ import { HttpClient} from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  // title = 'List of books from localhost:3000/books.json ';
-  title = 'Books'
-  books;
+  title = 'This is root page'
 
-  constructor(private http: HttpClient) {
-    http.get('http://localhost:3000/api/v1/books.json')
-      .subscribe(res => this.books = res);
+  constructor() {
   }
 }
