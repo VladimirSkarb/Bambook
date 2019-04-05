@@ -12,13 +12,11 @@ export class BookComponent {
 
   constructor(private bookService: BookService,
               private activatedRoute: ActivatedRoute,
-              ){
-      this.bookService.getBookById(this.activatedRoute.snapshot.params['id'])
-        .then((resp) => {
-          this.book = resp;
-          console.log(this.book)
-        });
+  ){
+    this.bookService.getBookById(this.activatedRoute.snapshot.params['id'])
+      .then((resp) => {
+        this.book = resp;
+        console.log(this.book);
+      });
   }
 }
-
-

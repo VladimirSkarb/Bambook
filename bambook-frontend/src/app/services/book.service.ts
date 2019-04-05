@@ -11,7 +11,7 @@ export class BookService {
 
   httpOptions = {
     headers: new HttpHeaders({ 'Authorization': this.authToken })
-  }
+  };
 
   constructor(private http: HttpClient) { }
 
