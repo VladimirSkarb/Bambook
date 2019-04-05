@@ -50,58 +50,6 @@
   background-color: #F7F7F7;
 }
 
-/*.books__block {*/
-  /*display: flex;*/
-  /*!* flex-direction: column; *!*/
-  /*!*justify-content: space-between;*!*/
-  /*!*width: 100%;*!*/
-  /*width: 1024px;*/
-  /*margin: 0 auto 101px;*/
-  /*flex-wrap:  wrap;*/
-  /*!* padding: 0 18px; *!*/
-  /*!* display: flex; *!*/
-  /*!* border:1px #ccc solid; *!*/
-
-/*}*/
-
-/*.block {*/
-  /*!* width: 100%; *!*/
-  /*width: 196px;*/
-  /*margin: 15px 30px auto;*/
-  /*!*background: red;*!*/
-  /*!*border: 2px solid black;*!*/
-  /*!*margin-bottom: 27px;*!*/
- /*!*float: left;*!*/
-
-/*!* text-align:center; *!*/
-/*!* font-size: 1em; *!*/
-/*!* padding: 1.5em; *!*/
-/*}*/
-
-/*!*.block:after {*!*/
-  /*!*content: '';*!*/
-  /*!*flex: 0 1 100px;*!*/
-/*!*}*!*/
-/*!* h1 {*/
-  /*width: 1024px;*/
-  /*margin: 0 auto;*/
-/*} *!*/
-
-/*!* div {*/
-  /*width: 1024px;*/
-  /*margin: 0 auto;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-/*} *!*/
-/*.books__img {*/
-  /*max-width: 180px;*/
-  /*max-height: 300px;*/
-  /*margin-top: 10px;*/
-  /*!* width: 62px;*/
-  /*height: 55px; *!*/
-  /*margin-bottom: -10px;*/
-/*}*/
-
 .books__title {
   font-size: 40px;
   text-transform: uppercase;

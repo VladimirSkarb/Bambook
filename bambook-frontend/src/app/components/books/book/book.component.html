@@ -1,0 +1,23 @@
+ <div class="book-view">
+      <div class="book-image">
+        <img src="{{ book.book.cover_photo.url }}" class="books__img" alt="Book Image">
+      </div>
+     <div class="book-info">
+        <div class="book-title">
+          <div *ngIf="book">
+            <P class="book-name">"{{book.book.title}}"</P>
+            <P class="book-author"><span> From: </span> {{book.book.author}}</P>
+          </div>
+        </div>
+        <div class="book-description">
+          <div *ngIf="book">
+            <p>{{book.book.description}}</p>
+          </div>
+        </div>
+        <div class="book-details">
+          <div *ngIf="book">
+            <a href="{{book.book.book_file.url}}" download >Download link</a>
+          </div>
+        </div>
+    </div>
+ </div>

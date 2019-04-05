@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
-// import { JwtService } from './jwt.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,14 +15,4 @@ export class AppComponent {
     http.get('http://localhost:3000/api/v1/books.json')
       .subscribe(res => this.books = res);
   }
-
-  // logout() {
-  //   console.log('logout')
-  //   this.jwtService.logout()
-  // }
-  //
-  // public get loggedIn(): boolean{
-  //   return localStorage.getItem('access_token') !==  null;
-  // }
-
 }
