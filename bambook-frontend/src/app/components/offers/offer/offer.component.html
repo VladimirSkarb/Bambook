@@ -1,0 +1,19 @@
+<div class="book-view">
+  <div class="book-image">
+    <img src="{{ offer.avatar}}" class="books__img" alt="Book Image">
+  </div>
+  <div class="book-info">
+    <div class="book-title">
+      <div *ngIf="offer">
+        <P class="book-name">"{{offer.title}}"</P>
+        <P class="book-author"><span> From: </span> {{offer.author}}</P>
+        <P class="book-deadline"><span> deadline: </span> {{offer.deadline}}</P>
+        <P class="book-minimum_quantity"><span> minimum_quantity: </span> {{offer.minimum_quantity}}</P>
+        <P class="book-price"><span> price: </span> {{offer.price}}</P>
+        <P class="book-contribution"><span> contribution: </span> {{offer.contribution}}</P>
+        <P class="book-status"><span> status: </span> {{offer.status}}</P>
+        <a class="book-link" href="{{offer.link}}" target="_blank">{{offer.link}}</a>
+      </div>
+    </div>
+  </div>
+</div>

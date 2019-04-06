@@ -11,7 +11,7 @@ export class BookComponent {
   book;
 
   constructor(private bookService: BookService,
-              private activatedRoute: ActivatedRoute,
+              private activatedRoute: ActivatedRoute
   ){
     this.bookService.getBookById(this.activatedRoute.snapshot.params['id'])
       .then((resp) => {
