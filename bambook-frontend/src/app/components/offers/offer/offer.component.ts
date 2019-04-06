@@ -19,4 +19,8 @@ export class OfferComponent {
       });
   }
 
+  subscribeOffer() {
+    console.log('realize subscribe method here')
+  }
+
 }
