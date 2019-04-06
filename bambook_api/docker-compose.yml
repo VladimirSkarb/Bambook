@@ -10,6 +10,8 @@ services:
 
   bambook_backend:
     container_name: "bambook_api_rails"
+    tty: true
+    stdin_open: true
     build: .
     command: /bin/sh -c "rm -f /myapp/tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
     volumes:
