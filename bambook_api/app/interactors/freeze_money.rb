@@ -12,6 +12,7 @@ class FreezeMoney
       context.user.wallet.update(available_money: rest_money, frozen_money: frozen_money)
       context.operation_code = 2
     else
+      context.offer.destroy
       context.errors = 'dont have enough money'
       context.fail!
     end
