@@ -11,6 +11,9 @@ import {BooksComponent} from './components/books/books.component';
 import {MenuComponent} from './components/menu/menu.component';
 import { AddBookComponent } from './components/books/add-book/add-book.component';
 import { BookComponent } from './components/books/book/book.component';
+import { OfferComponent } from './components/offers/offer/offer.component';
+import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
+import { OffersComponent } from './components/offers/offers.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { BookComponent } from './components/books/book/book.component';
     BooksComponent,
     HomeComponent,
     AddBookComponent,
-    BookComponent
+    BookComponent,
+    OfferComponent,
+    AddOfferComponent,
+    OffersComponent
   ],
   imports: [
     BrowserModule,

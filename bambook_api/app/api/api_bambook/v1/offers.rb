@@ -3,9 +3,12 @@ module ApiBambook
     class Offers < Main
       resource :offers do
         desc 'Get all offers'
+        params do
+          optional :page, type: Integer, default: 1
+        end
         get do
           offers = Offer.all
-          present offers, with: ApiBambook::Entities::OffersEntity
+          present paginate(offers), with: ApiBambook::Entities::OffersEntity
         end
 
         desc 'Create a new offer'
