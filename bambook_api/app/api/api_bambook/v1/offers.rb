@@ -78,6 +78,9 @@ module ApiBambook
           end
 
           desc 'Get offer_subscriptions of specific offer'
+          params do
+            requires :offer_id, type: String
+          end
           get '/subscriptions' do
             offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions
             present :offer_subscriptions, offer_subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
