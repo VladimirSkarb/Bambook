@@ -20,7 +20,12 @@ export class OfferComponent {
   }
 
   subscribeOffer() {
-    console.log('realize subscribe method here')
+    this.offerService.subscribeToOffer(this.activatedRoute.snapshot.params['id'])
+      .subscribe((resp) => {
+        this.offer = resp;
+        console.log(this.offer);
+      });
+
   }
 
 }

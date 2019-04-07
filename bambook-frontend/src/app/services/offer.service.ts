@@ -29,4 +29,10 @@ export class OfferService {
     });
   }
 
+  subscribeToOffer(offerId) {
+    let offer_id = {
+      offer_id: offerId
+    };
+    return this.http.post((`${this.apiUrl}/${offerId}/subscriptions`), offer_id, this.httpOptions);
+  }
 }
