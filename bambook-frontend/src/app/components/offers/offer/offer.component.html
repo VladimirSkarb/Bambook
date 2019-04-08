@@ -16,5 +16,13 @@
         <div><button class="subscribe-button" (click)="subscribeOffer()">Subscribe</button></div>
       </div>
     </div>
+
+    <div class="offer_subscriptions">
+      <p>Offer subscriptions:</p>
+      <div *ngFor="let subscription of offer_subscriptions.users">
+        <div>{{subscription.email}}</div>
+      </div>
+    </div>
+
   </div>
 </div>

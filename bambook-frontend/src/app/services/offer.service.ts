@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,7 @@ export class OfferService {
   }
 
   getOfferById(offerId): Promise<Object> {
-    return this.http.get(`${this.apiUrl}/${offerId}`).toPromise().then((resp) => {
-      let offer = resp;
-      return offer;
-    });
+    return this.http.get(`${this.apiUrl}/${offerId}`).toPromise()
   }
 
   subscribeToOffer(offerId) {
@@ -35,4 +32,5 @@ export class OfferService {
     };
     return this.http.post((`${this.apiUrl}/${offerId}/subscriptions`), offer_id, this.httpOptions);
   }
+
 }
