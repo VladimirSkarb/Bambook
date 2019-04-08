@@ -83,7 +83,8 @@ module ApiBambook
           end
           get '/subscriptions' do
             offer_subscriptions = Offer.find(params[:offer_id]).offer_subscriptions
-            present :offer_subscriptions, offer_subscriptions, with: ApiBambook::Entities::OfferSubscriptionsEntity
+            offer_subscriptions = offer_subscriptions.map(&:user)
+            present :users, offer_subscriptions, with: ApiBambook::Entities::UsersEntity
           end
 
           route_param :offer_subscription_id do
