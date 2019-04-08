@@ -19,7 +19,7 @@ export class OfferService {
   }
 
   addOffer(offer) {
-    return this.http.post('http://localhost:3000/api/v1/offers', offer, this.httpOptions);
+    return this.http.post(`${this.apiUrl}`, offer, this.httpOptions);
   }
 
   getOfferById(offerId): Promise<Object> {
