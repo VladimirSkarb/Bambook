@@ -1,17 +1,8 @@
 #start api server<br/>
-rvm install 2.5.3<br/>
-rvm use 2.5.3@bambook_api --create<br/>
-gem install bundler<br/>
-bundle install<br/>
-rails db:create db:migrate db:seed<br/>
-rails s<br/>
-
-rails db:drop
-bundle install
-create .env in root(add params from .env.example)
-rails db:create db:migrate db:seed
-rails s
-
-http://localhost:3000/swagger   - swagger documentation
+1. install docker и docker-compose
+2. docker-compose run bambook_backend bundle exec rails db:migrate db:seed
+3. create .env in the root of bambook_api  folder(add params from .env.example)
+4. http://localhost:3000/swagger   - swagger documentation
+5. http://localhost:3000/admin     - active admin
 
 
