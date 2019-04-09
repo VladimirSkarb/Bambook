@@ -20,12 +20,12 @@
 
     <div class="wrap-input100">
       <span class="label-input100">Book File:</span>
-      <input type="file" class="form-control" name="book_file" (change)="onFileSelected($event)">
+      <input type="file" class="form-control" name="book_file" (change)="onFileSelected($event)" accept="application/pdf, text/plain, .docx, , .doc, .fb2, .djvu">
     </div>
 
     <div class="wrap-input100">
       <span class="label-input100">Book Photo:</span>
-      <input type="file" class="form-control" name="cover_photo" (change)="onPhotoSelected($event)">
+      <input type="file" class="form-control" name="cover_photo" (change)="onPhotoSelected($event)" accept="image/jpg, image/jpeg, image/gif, image/png">
     </div>
 
     <div class="wrap-input100">

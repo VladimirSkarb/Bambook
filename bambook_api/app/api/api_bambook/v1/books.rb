@@ -7,7 +7,8 @@ module ApiBambook
           optional :page, type: Integer, default: 1
         end
         get do
-          books = Book.all.page params[:page]
+          # books = Book.all.page params[:page]
+          books = Book.order('created_at DESC')
           present :books, paginate(books), with: ApiBambook::Entities::BooksEntity
         end
 
