@@ -1,0 +1,10 @@
+<section class="books">
+  <h1 class="books__title">
+    {{title}}
+  </h1>
+  <div class="books__block" >
+    <figure class="block" *ngFor="let offer of offers" [routerLink]="[offer.id]">
+      <img src="{{ offer.avatar}}" class="books__img" alt="{{ offer.title }}">
+    </figure>
+  </div>
+</section>
