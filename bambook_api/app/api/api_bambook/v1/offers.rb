@@ -7,7 +7,7 @@ module ApiBambook
           optional :page, type: Integer, default: 1
         end
         get do
-          offers = Offer.all
+          offers = Offer.order('created_at DESC')
           present paginate(offers), with: ApiBambook::Entities::OffersEntity
         end
 
