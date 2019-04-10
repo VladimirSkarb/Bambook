@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import {HomeComponent} from './components/home/home.component';
 import {BooksComponent} from './components/books/books.component';
 import {MenuComponent} from './components/menu/menu.component';
 import { AddBookComponent } from './components/books/add-book/add-book.component';
@@ -20,7 +19,6 @@ import { OffersComponent } from './components/offers/offers.component';
     AppComponent,
     MenuComponent,
     BooksComponent,
-    HomeComponent,
     AddBookComponent,
     BookComponent,
     OfferComponent,
