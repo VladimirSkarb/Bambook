@@ -19,5 +19,10 @@
           <a href="{{book.book.book_file.url}}"  download>Download link</a>
         </div>
       </div>
+     <div *ngIf="this.auth.loggedIn">
+      <div *ngIf="sameUser()">
+        <button (click)="deleteBook(book.book.id)">Delete Book</button>
+      </div>
+     </div>
   </div>
  </div>
