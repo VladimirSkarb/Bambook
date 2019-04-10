@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BookService {
+  apiUrl: string;
 
   authToken =  localStorage.getItem('access_token');
 
@@ -13,7 +14,9 @@ export class BookService {
     headers: new HttpHeaders({ 'Authorization': this.authToken })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiUrl = 'http://localhost:3000/api/v1/books';
+  }
 
   addBook(book) {
     const fd = new FormData();
@@ -23,6 +26,21 @@ export class BookService {
     fd.append('book[cover_photo]', book.book.cover_photo);
     fd.append('book[book_file]', book.book.book_file);
 
-    return this.http.post('http://localhost:3000/api/v1/books', fd, this.httpOptions);
+    return this.http.post(`${this.apiUrl}`, fd, this.httpOptions);
+  }
+
+  getBookById(bookId): Promise<Object> {
+    return this.http.get(`${this.apiUrl}/${bookId}`).toPromise().then((resp) => {
+      let book = resp;
+      return book;
+    });
+  }
+  deleteBook(bookId): Promise<Object> {
+    console.log(`from book.service delete method......`);
+    return this.http.delete(`${this.apiUrl}/${bookId}`, this.httpOptions).toPromise().then((resp) => {
+      let status = resp;
+      console.log('book', status);
+      return status;
+    });
   }
 }
