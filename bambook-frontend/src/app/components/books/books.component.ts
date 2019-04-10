@@ -13,5 +13,5 @@ export class BooksComponent {
   constructor(private http: HttpClient) {
     http.get('http://localhost:3000/api/v1/books')
       .subscribe(res => this.books = res);
+    }
   }
-}

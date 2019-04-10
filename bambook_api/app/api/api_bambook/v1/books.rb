@@ -7,9 +7,10 @@ module ApiBambook
           optional :page, type: Integer, default: 1
         end
         get do
-          # books = Book.all.page params[:page]
           books = Book.order('created_at DESC')
+          books_count = Book.count
           present :books, paginate(books), with: ApiBambook::Entities::BooksEntity
+          present :books_count, books_count
         end
 
         desc 'Create a new book'
