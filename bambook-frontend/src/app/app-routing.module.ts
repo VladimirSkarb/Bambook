@@ -9,7 +9,6 @@ import { OffersComponent } from './components/offers/offers.component';
 
 const routes: Routes = [
   { path:  'auth', loadChildren:  './components/auth/auth.module#AuthModule' },
-  { path: '', component: BooksComponent, pathMatch: 'full' },
   { path: 'books', component: BooksComponent},
   { path: 'books/add', component: AddBookComponent},
   { path: 'books/:id' , component: BookComponent },
