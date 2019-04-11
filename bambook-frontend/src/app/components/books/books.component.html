@@ -8,3 +8,32 @@
     </figure>
   </div>
 </section>
+
+<div>
+  <div class="container">
+    <div class="text-center">
+
+      <!-- items being paged -->
+      <div *ngFor="let item of pagedItems">{{item.name}}</div>
+
+      <!-- pager -->
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="getPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="getPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="getPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="getPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="getPage(pager.totalPages)">Last</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
