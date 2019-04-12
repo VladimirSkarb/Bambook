@@ -10,7 +10,7 @@
       <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
         <a (click)="getPage(page)">{{page}}</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Next</li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.currentPage + 1)">Next</li>
       <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Last</li>
     </ul>
   </div>
@@ -19,18 +19,19 @@
       <img src="{{ book.cover_photo.url }}" class="books__img" alt="{{ book.title }}">
     </figure>
   </div>
-</section>
 
-<div align="center">
-  <!-- pager -->
-  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-    <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(1)">First</li>
-    <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(pager.currentPage - 1)">Previous</li>
-    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-      <a (click)="getPage(page)">{{page}}</a>
-    </li>
-    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Next</li>
-    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Last</li>
-  </ul>
-</div>
+  <div align="center">
+    <!-- pager -->
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(1)">First</li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(pager.currentPage - 1)">Previous</li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="getPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.currentPage + 1)">Next</li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Last</li>
+    </ul>
+  </div>
+
+</section>
 

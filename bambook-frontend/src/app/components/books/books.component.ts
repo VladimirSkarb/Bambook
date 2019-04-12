@@ -17,7 +17,7 @@ export class BooksComponent {
   constructor(private http: HttpClient, private pagerService: PagerService ) {
     http.get('http://localhost:3000/api/v1/books').toPromise().then((resp) => {
       this.books = resp;
-      this.books_count = this.books.books_count
+      this.books_count = this.books.books_count;
       this.setPage(1)
       });
     }
