@@ -5,13 +5,13 @@
   <div align="center">
     <!-- pager -->
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(1)">First</li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(pager.currentPage - 1)">Previous</li>
+      <li *ngIf="pager.currentPage !== 1" (click)="getPage(1)">First</li>
+      <li *ngIf="pager.currentPage !== 1" (click)="getPage(pager.currentPage - 1)">Previous</li>
       <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
         <a (click)="getPage(page)">{{page}}</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.currentPage + 1)">Next</li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Last</li>
+      <li *ngIf="pager.currentPage !== pager.totalPages" (click)="getPage(pager.currentPage + 1)">Next</li>
+      <li *ngIf="pager.currentPage !== pager.totalPages" (click)="getPage(pager.totalPages)">Last</li>
     </ul>
   </div>
   <div class="books__block" >
@@ -23,13 +23,13 @@
   <div align="center">
     <!-- pager -->
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(1)">First</li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="getPage(pager.currentPage - 1)">Previous</li>
+      <li *ngIf="pager.currentPage !== 1" (click)="getPage(1)">First</li>
+      <li *ngIf="pager.currentPage !== 1" (click)="getPage(pager.currentPage - 1)">Previous</li>
       <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
         <a (click)="getPage(page)">{{page}}</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.currentPage + 1)">Next</li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="getPage(pager.totalPages)">Last</li>
+      <li *ngIf="pager.currentPage !== pager.totalPages" (click)="getPage(pager.currentPage + 1)">Next</li>
+      <li *ngIf="pager.currentPage !== pager.totalPages" (click)="getPage(pager.totalPages)">Last</li>
     </ul>
   </div>
 
