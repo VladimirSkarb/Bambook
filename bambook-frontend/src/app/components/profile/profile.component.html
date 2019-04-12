@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="user_data">
+
+    <div class="title"> User data:</div>
+    <div class="wrapper">
+      <div class="column">Email: <span>{{this.user_data.user.email}}</span></div>
+    </div>
+
+    <div class="title"> Wallet:</div>
+    <div class="wrapper">
+      <div class="column">Available_money: <span>{{this.user_data.wallet.available_money}} UAH</span></div>
+      <div class="column">Frozen_money: <span>{{this.user_data.wallet.frozen_money}} UAH</span></div>
+    </div>
+
+    <div class="title"> Recharges:</div>
+    <div class="wrapper">
+      <div class="column">Id</div>
+      <div class="column">Amount</div>
+      <div class="column">Status</div>
+      <div class="column">Date</div>
+    </div>
+    <div class="wrapper" *ngFor="let recharge of recharges.recharges">
+      <div class="column">{{recharge.id}}</div>
+      <div class="column">{{recharge.amount}}</div>
+      <div class="column">{{recharge.status}}</div>
+      <div class="column">{{recharge.created_at}}</div>
+    </div>
+
+  </div>
+</div>
+
+

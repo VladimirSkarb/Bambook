@@ -1,0 +1,25 @@
+.user_data {
+  margin: 0% 10% 0% 10%;
+}
+
+.user_data span {
+  margin-left: 5%;
+  margin-right: 10%;
+}
+.wrapper {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  border:1px solid rgba(55, 131, 229, 0.22);
+}
+
+.column {
+  width: 25%;
+}
+
+.title {
+  color: #57b846;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
