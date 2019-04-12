@@ -21,12 +21,7 @@
   border: 1px solid #F7F7F7;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  /*margin-bottom: 27px;*/
   float: left;
-
-  /* text-align:center; */
-  /* font-size: 1em; */
-  /* padding: 1.5em; */
 }
 
 .books__img {
@@ -38,14 +33,9 @@
 
 
 .books {
-  /*width: 0 auto;*/
-  /*margin: 0 auto;*/
   margin-top: -80px;
-  /* width: 1024px; */
-  /* margin: 0 auto 101px; */
   justify-content: space-between;
   text-align: center;
-  /* padding: 50px 0 55px; */
   display: block;
   background-color: #F7F7F7;
 }
@@ -60,3 +50,31 @@
   margin: 99px 0 0;
   padding-bottom: 0;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.pagination li {
+  list-style: none;
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination li.active {
+  background-color: #378de5;
+  color: white;
+  border: 1px solid #3783e5;
+}
+
+.pagination li:hover:not(.active) {background-color: #ddd;}
