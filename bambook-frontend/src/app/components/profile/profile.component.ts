@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProfileComponent {
   user_data;
   recharges;
+  avaliable_offers;
 
   apiUrl = 'http://localhost:3000/api/v1/profile';
 
@@ -25,6 +26,10 @@ export class ProfileComponent {
 
     http.get(`${this.apiUrl}/recharges`, this.httpOptions).toPromise().then((resp) => {
       this.recharges = resp;
+    });
+
+    http.get(`${this.apiUrl}/offers`, this.httpOptions).toPromise().then((resp) => {
+      this.avaliable_offers = resp;
     });
   }
 
