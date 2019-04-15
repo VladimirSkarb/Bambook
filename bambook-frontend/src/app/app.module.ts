@@ -13,6 +13,7 @@ import { BookComponent } from './components/books/book/book.component';
 import { OfferComponent } from './components/offers/offer/offer.component';
 import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
 import { OffersComponent } from './components/offers/offers.component';
+import { UpdateBookComponent } from './components/books/update-book/update-book.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { OffersComponent } from './components/offers/offers.component';
     BookComponent,
     OfferComponent,
     AddOfferComponent,
-    OffersComponent
+    OffersComponent,
+    UpdateBookComponent
   ],
   imports: [
     BrowserModule,
