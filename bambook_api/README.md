@@ -8,5 +8,5 @@
 userfull commands:
 docker-compose up   - start containers in from current directory
 docker attach<container_id>  - attach to existing container
-docker-compose run bambook_backend bash  - attach to existing container bash
+docker-compose run bambook_backend bash  - attach to existing container bash (if you want to use Pry gem)
 rails db:create db:migrate - use in bash to rin migrations

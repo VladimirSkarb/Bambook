@@ -28,7 +28,7 @@ module ApiBambook
         get '/recharges' do
           authenticate!
           authorize current_user, :user_profile?
-          recharges = current_user.wallet.balance_recharges
+          recharges = current_user.wallet.balance_recharges.reverse
           present :recharges, recharges, with: ApiBambook::Entities::RechargesEntity
         end
 

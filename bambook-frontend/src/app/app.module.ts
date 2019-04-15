@@ -14,6 +14,7 @@ import { OfferComponent } from './components/offers/offer/offer.component';
 import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { UpdateBookComponent } from './components/books/update-book/update-book.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpdateBookComponent } from './components/books/update-book/update-book.
     OfferComponent,
     AddOfferComponent,
     OffersComponent,
-    UpdateBookComponent
+    UpdateBookComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
