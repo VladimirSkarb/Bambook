@@ -75,7 +75,7 @@ module ApiBambook
             result = SubscribeOffer.call(user: current_user, offer: offer)
 
             if result.success?
-              present :offer_subscription, result.subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
+              present result.subscription, with: ApiBambook::Entities::OfferSubscriptionsEntity
             else
               error!(result.errors, 422)
             end
