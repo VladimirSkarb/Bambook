@@ -44,8 +44,9 @@ export class OfferComponent {
   subscribeOffer() {
     this.offerService.subscribeToOffer(this.offer_id)
       .subscribe((resp) => {
-        this.offer_subscriptions.users.push(resp);
-        console.log(this.offer_subscriptions)
+        // this.offer_subscriptions.users.push(resp);
+        // console.log(this.offer_subscriptions)
+        window.location.reload();
       });
   }
 
