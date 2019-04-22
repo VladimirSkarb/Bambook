@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfferService } from '../../../services/offer.service';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class OfferComponent {
   constructor(private offerService: OfferService,
               private activatedRoute: ActivatedRoute,
               private http: HttpClient,
-              private auth: AuthService){
+              private auth: AuthService) {
 
     if (this.auth.loggedIn) {
       this.http.get((`http://localhost:3000/api/v1/profile`), this.httpOptions)
@@ -44,7 +44,9 @@ export class OfferComponent {
   subscribeOffer() {
     this.offerService.subscribeToOffer(this.offer_id)
       .subscribe((resp) => {
-        this.offer = resp;
+        // this.offer_subscriptions.users.push(resp);
+        // console.log(this.offer_subscriptions)
+        window.location.reload();
       });
   }
 

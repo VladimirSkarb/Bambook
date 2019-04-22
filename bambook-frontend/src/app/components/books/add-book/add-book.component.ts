@@ -59,7 +59,7 @@ export class AddBookComponent implements OnInit {
         }
         else {
           console.log(resp.message);
-            }
+        }
       });
     } else {
       this.message = 'Please fill in all fields';

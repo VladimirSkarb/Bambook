@@ -24,5 +24,9 @@
         <button (click)="deleteBook(book.book.id)">Delete Book</button>
       </div>
      </div>
+     <div *ngIf="this.auth.loggedIn">
+       <div *ngIf="sameUser()">
+         <Button class="btn btn-primary" routerLink="/books/update/{{ book.book.id }}" >Edit</Button>       </div>
+     </div>
   </div>
  </div>

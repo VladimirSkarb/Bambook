@@ -1,0 +1,60 @@
+
+<div *ngIf="this.auth.loggedIn; else logInToAddBook" class="container">
+  <div *ngIf="sameUser()">
+  <form (submit)="updateBook()" class="contact100-form validate-form">
+
+    <div *ngIf="message" class="alert alert-danger">
+      {{message}}
+    </div>
+
+    <div class="wrap-input100">
+      <span class="label-input100">Title:</span>
+      <input type="text" [(ngModel)]="title" name="title" class="input100" placeholder="Enter title of the book">
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100">
+      <span class="label-input100">Author:</span>
+      <input class="input100" type="text" [(ngModel)]="author" name="author" placeholder="Enter author name">
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100">
+      <span class="label-input100">Book File:</span>
+      <input type="file" class="form-control" name="book_file" (change)="onFileSelected($event)" accept="application/pdf, text/plain, .docx, , .doc, .fb2, .djvu">
+    </div>
+
+    <div class="wrap-input100">
+      <span class="label-input100">Book Photo:</span>
+      <input type="file" class="form-control" name="cover_photo" (change)="onPhotoSelected($event)" accept="image/jpg, image/jpeg, image/gif, image/png">
+    </div>
+
+    <div class="wrap-input100">
+      <span class="label-input100">Description:</span>
+      <textarea [(ngModel)]="description" name="description" class="input100" placeholder="Your Description..."></textarea>
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="container-contact100-form-btn">
+      <div *ngIf="this.auth.loggedIn">
+        <div *ngIf="sameUser()">
+          <!--<button (click)="updateBook(book.book.id)">Update Book</button>-->
+
+
+      <button  class="contact100-form-btn" (click)="updateBook(book.book.id)">
+              <span>
+                Submit
+                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+              </span>
+      </button>
+      </div>
+      </div>
+    </div>
+
+  </form>
+  </div>
+</div>
+
+<ng-template #logInToAddBook>
+  <h1>You need to be logged in to add a book!</h1>
+</ng-template>
