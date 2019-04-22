@@ -48,8 +48,12 @@ export class BookService {
     fd.append('book[title]', book.book.title);
     fd.append('book[author]', book.book.author);
     fd.append('book[description]', book.book.description);
-    fd.append('book[cover_photo]', book.book.cover_photo);
-    fd.append('book[book_file]', book.book.book_file);
+    if (book.book.cover_photo != null) {
+      fd.append('book[cover_photo]', book.book.cover_photo);
+    }
+    if (book.book.book_file != null) {
+      fd.append('book[book_file]', book.book.book_file);
+    }
 
     return this.http.put(`${this.apiUrl}/${bookId}`, fd, this.httpOptions);
   }

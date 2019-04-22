@@ -49,6 +49,9 @@ export class UpdateBookComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.bookService.getBookById(this.id).then((resp) => {
       this.book = resp;
+      this.title = this.book.book.title;
+      this.author = this.book.book.author;
+      this.description = this.book.book.description;
     });
   }
 
@@ -62,9 +65,8 @@ export class UpdateBookComponent implements OnInit {
 
   updateBook(bookId) {
 
-    if ((this.title && this.title !== '') &&
-      (this.author && this.author !== '') &&
-      (this.cover_photo && this.cover_photo != null) &&
+    if ((this.title && this.title != '') &&
+      (this.author && this.author != '') &&
       (this.description && this.description != null)) {
 
       const book = {
@@ -86,9 +88,9 @@ export class UpdateBookComponent implements OnInit {
           console.log(resp.message);
         }
       });
-    } else {
-      this.message = 'Please fill in all fields';
-    }
+     } else {
+       this.message = 'Please fill in all fields';
+     }
   }
   sameUser() {
     return this.auth.loggedIn && this.book.book.user_id === this.user_profile.user.id;
