@@ -5,28 +5,23 @@
    <div class="book-info">
       <div class="book-title">
         <div *ngIf="book">
-          <P class="book-name">"{{book.book.title}}"</P>
-          <P class="book-author"><span> From: </span> {{book.book.author}}</P>
+          <div class="book-name">"{{book.book.title}}"</div>
+          <p class="book-author"><span> From: </span> {{book.book.author}}</p>
         </div>
       </div>
       <div class="book-description">
         <div *ngIf="book">
-          <p>{{book.book.description}}</p>
+          {{book.book.description}}
         </div>
       </div>
       <div class="book-details">
-        <div *ngIf="book">
-          <a href="{{book.book.book_file.url}}"  download>Download link</a>
+        <div *ngIf="this.auth.loggedIn">
+          <div *ngIf="sameUser()">
+            <button class="subscribe-button"><a href="{{book.book.book_file.url}}"  download>Download link</a></button>
+            <button class="subscribe-button" (click)="deleteBook(book.book.id)">Delete Book</button>
+            <button class="subscribe-button" routerLink="/books/update/{{ book.book.id }}" >Edit</button>
+          </div>
         </div>
       </div>
-     <div *ngIf="this.auth.loggedIn">
-      <div *ngIf="sameUser()">
-        <button (click)="deleteBook(book.book.id)">Delete Book</button>
-      </div>
-     </div>
-     <div *ngIf="this.auth.loggedIn">
-       <div *ngIf="sameUser()">
-         <Button class="btn btn-primary" routerLink="/books/update/{{ book.book.id }}" >Edit</Button>       </div>
-     </div>
   </div>
  </div>
