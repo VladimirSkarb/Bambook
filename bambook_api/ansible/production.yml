@@ -14,4 +14,4 @@
     ansistrano_git_identity_key_remote_path: '/home/app/.ssh/id_rsa'
     ansistrano_after_cleanup_tasks_file: '{{ playbook_dir }}/after-deploy.yml'
   roles:
-    - role: ansistrano.deploy
+    - role: ansible.deploy
