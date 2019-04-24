@@ -1,0 +1,1 @@
+production ansible_user=app ansible_port=8888 ansible_host=134.209.229.55 ansible_ssh_private_key_file=/home/ripchanskiy/.ssh/id_rsa
