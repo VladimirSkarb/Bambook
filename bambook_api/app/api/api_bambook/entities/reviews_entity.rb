@@ -4,7 +4,7 @@ module ApiBambook
       expose :id
       expose :comment
       expose :rating
-      expose :user_id
+      expose :user, with: UsersEntity
       expose :book_id
     end
   end

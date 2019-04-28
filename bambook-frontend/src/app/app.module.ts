@@ -15,6 +15,8 @@ import { AddOfferComponent } from './components/offers/add-offer/add-offer.compo
 import { OffersComponent } from './components/offers/offers.component';
 import { UpdateBookComponent } from './components/books/update-book/update-book.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ReviewsComponent } from './components/books/reviews/reviews.component';
+import { AddReviewComponent } from './components/books/reviews/add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     AddOfferComponent,
     OffersComponent,
     UpdateBookComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReviewsComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,

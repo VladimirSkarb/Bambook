@@ -83,6 +83,30 @@
 }
 
 .book-description {
-  margin-top: 30px;
+  margin-top: 15px;
   font-style: italic;
+}
+
+.reviews {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.average-rating {
+  font-size: 20px;
+}
+
+.average-rating span {
+  font-size: 20px;
+  color: #57b846;
+}
+
+.book-author {
+  font-size: 20px;
+}
+
+.book-author span {
+  font-size: 20px;
+  color: #57b846;
 }

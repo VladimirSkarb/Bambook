@@ -1,0 +1,25 @@
+.reviews {
+  font-style: italic;
+  width: 90%;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 2px 2px 3px 3px #ccc;
+  border-radius: 5px;
+}
+
+.rating {
+  color: green;
+  font-size: 20px;
+  width: 100px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.review_block {
+  margin-left: 15%;
+  margin-right: 12%;
+  display: flex;
+}
