@@ -27,7 +27,10 @@
   </div>
  </div>
 
- <app-add-review></app-add-review>
+ <div *ngIf="this.auth.loggedIn">
+    <app-add-review></app-add-review>
+ </div>
+
  <div class="reviews">
    <app-reviews></app-reviews>
  </div>
