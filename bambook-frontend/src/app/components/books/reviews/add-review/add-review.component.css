@@ -1,0 +1,43 @@
+.input100 {
+  font-family: Poppins-Regular;
+  font-size: 25px;
+  color: #555555;
+  line-height: 1.2;
+  margin-left: 15%;
+  margin-right: 16%;
+  margin-top: 25px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px 6px #ccc;
+
+  display: block;
+  width: 72%;
+  background: transparent;
+  padding: 0 5px;
+}
+
+.rating_form {
+  float: left;
+  margin-left: 15%;
+  border-radius: 5px;
+}
+
+.review_form {
+  margin-bottom: 60px;
+}
+
+.create-review-button {
+  background-color: #1f8007d9;
+  color: white;
+  font-weight: bold;
+}
+
+input {
+  background-color: #528ecc;
+  color: white;
+  font-weight: bold;
+}
+
+.full_star {
+  color: yellow;
+  font-size: 25px;
+}

@@ -1,0 +1,18 @@
+<div *ngFor="let review of reviews.reviews">
+  <div class="review_block">
+    <div class="avatar" *ngIf="review.user.gender=='male'">
+     <img src="https://www.manohman.com.au/favicon.png" alt="альтернативный текст">
+    </div>
+
+    <div class="avatar" *ngIf="review.user.gender=='female'">
+      <img src="https://seeklogo.com/images/G/girl-logo-C7099BFDC9-seeklogo.com.png" alt="альтернативный текст">
+    </div>
+
+    <div class="reviews">
+      <div>{{review.user.email}}</div>
+      <hr>
+      <div class="comment">{{review.comment}}</div>
+      <div class="rating"> Rating: {{review.rating}}/5</div>
+    </div>
+  </div>
+</div>

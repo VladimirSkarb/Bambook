@@ -57,4 +57,9 @@ export class BookService {
 
     return this.http.put(`${this.apiUrl}/${bookId}`, fd, this.httpOptions);
   }
+
+  addReview(comment, rating, bookId) {
+    return this.http.post(`${this.apiUrl}/${bookId}/reviews`, {comment, rating}, this.httpOptions);
+  }
+
 }

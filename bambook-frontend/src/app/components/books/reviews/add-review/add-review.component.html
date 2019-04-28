@@ -1,0 +1,10 @@
+<div class="review_form">
+  <div class="wrap-input100">
+    <textarea [(ngModel)]="comment" name="comment" class="input100" placeholder="New Review..."></textarea>
+    <span class="focus-input100"></span>
+  </div>
+  <div class="rating_form">
+    <input [(ngModel)]="rating" type="number" name="rating" min="1" max="5"><span class="full_star">&#9733;</span>
+    <button class="create-review-button" (click)="addReview()">Leave Review</button>
+  </div>
+</div>

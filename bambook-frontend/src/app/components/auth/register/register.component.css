@@ -115,3 +115,8 @@ input {
 .text--center {
   text-align: center;
 }
+
+select {
+  color: blue;
+  align-content: center;
+}

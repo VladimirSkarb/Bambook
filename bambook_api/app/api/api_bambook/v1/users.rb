@@ -26,9 +26,10 @@ module ApiBambook
         params do
           requires :email, type: String, regexp: User::EMAIL_REGEXP
           requires :password, type: String
+          requires :gender, type: String
         end
         post do
-          user = User.new(email: params[:email], password: params[:password])
+          user = User.new(email: params[:email], password: params[:password], gender: params[:gender])
           if user.save
             wallet = Wallet.create(user: user)
             present :user, user, with: ApiBambook::Entities::UsersEntity
