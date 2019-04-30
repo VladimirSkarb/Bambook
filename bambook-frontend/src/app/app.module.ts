@@ -17,6 +17,7 @@ import { UpdateBookComponent } from './components/books/update-book/update-book.
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReviewsComponent } from './components/books/reviews/reviews.component';
 import { AddReviewComponent } from './components/books/reviews/add-review/add-review.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AddReviewComponent } from './components/books/reviews/add-review/add-re
     AddReviewComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
