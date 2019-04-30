@@ -87,12 +87,13 @@ module ApiBambook
           end
 
           desc 'Get reviews of specific book'
-          params do
-            optional :page, type: Integer, default: 1
-          end
+          # params do
+          #   optional :page, type: Integer, default: 1
+          # end
           get '/reviews' do
-            reviews = Book.find(params[:book_id]).reviews.page params[:page]
-            present :reviews, paginate(reviews), with: ApiBambook::Entities::ReviewsEntity
+            reviews = Book.find(params[:book_id]).reviews.order('created_at DESC')#.page params[:page]
+            # present :reviews, paginate(reviews), with: ApiBambook::Entities::ReviewsEntity
+            present :reviews, reviews, with: ApiBambook::Entities::ReviewsEntity
           end
 
           route_param :review_id do

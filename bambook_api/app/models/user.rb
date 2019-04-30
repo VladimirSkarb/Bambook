@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   EMAIL_REGEXP = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates_presence_of :email, :password_digest
+  validates_presence_of :email, :password_digest, :gender
   validates :email, presence: true, uniqueness: true, format: EMAIL_REGEXP
   has_secure_password
 
