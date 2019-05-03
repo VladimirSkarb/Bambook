@@ -7,7 +7,7 @@ module ApiBambook
           optional :page, type: Integer, default: 1
         end
         get do
-          offers = Offer.order('created_at DESC').reverse_order
+          offers = Offer.order('created_at DESC')
           offers_count = Offer.count
           current_page = params[:page]
           present :offers, paginate(offers), with: ApiBambook::Entities::OffersEntity
