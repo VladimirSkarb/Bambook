@@ -72,9 +72,10 @@ ActiveAdmin.register Offer do
         subscription.user.wallet.update(frozen_money: updated_freeze_balance, available_money: updated_available_money)
         # create money_transactions for return
         CreateTransaction.call(user: subscription.user, operation_code: 3, offer_contribution: offer.contribution)
+        offer.destroy
       end
 
-      redirect_to admin_offer_url(offer), notice: "Offer was closed!"
+      redirect_to admin_offers_url, notice: "Offer was closed and deleted!"
     end
 
   end

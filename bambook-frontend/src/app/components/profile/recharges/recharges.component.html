@@ -1,0 +1,16 @@
+<app-profile></app-profile>
+<div class="user_data">
+  <div class="title"> Recharges:</div>
+  <div class="wrapper">
+    <div class="column">Id</div>
+    <div class="column">Amount</div>
+    <div class="column">Status</div>
+    <div class="column">Date</div>
+  </div>
+  <div class="wrapper" *ngFor="let recharge of recharges.recharges">
+    <div class="column">{{recharge.id}}</div>
+    <div class="column">{{recharge.amount}}</div>
+    <div class="column">{{recharge.status}}</div>
+    <div class="column">{{recharge.created_at}}</div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<app-profile></app-profile>
+
+<div class="user_data">
+  <div class="title"> Avaliable Offers:</div>
+  <div class="wrapper">
+    <div class="column">Book</div>
+    <div class="column">Link</div>
+  </div>
+  <div class="wrapper" *ngFor="let avaliable_offer of avaliable_offers">
+    <div class="column"><a href="offers/{{avaliable_offer.offer_id}}">{{avaliable_offer.offer.title}}</a></div>
+    <div class="column"><a href="{{avaliable_offer.book_file.url}}"  download>Download Book</a></div>
+  </div>
+</div>
