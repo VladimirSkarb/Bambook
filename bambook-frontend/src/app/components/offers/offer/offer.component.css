@@ -73,3 +73,7 @@
   position:relative;
   top:1px;
 }
+
+.book-title {
+  font-size: 25px;
+}

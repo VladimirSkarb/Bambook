@@ -15,8 +15,11 @@ import { AddOfferComponent } from './components/offers/add-offer/add-offer.compo
 import { OffersComponent } from './components/offers/offers.component';
 import { UpdateBookComponent } from './components/books/update-book/update-book.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PurchaserOffersComponent } from './components/profile/purchaser-offers/purchaser-offers.component';
+import { RechargesComponent } from './components/profile/recharges/recharges.component';
 import { ReviewsComponent } from './components/books/reviews/reviews.component';
 import { AddReviewComponent } from './components/books/reviews/add-review/add-review.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,13 @@ import { AddReviewComponent } from './components/books/reviews/add-review/add-re
     OffersComponent,
     UpdateBookComponent,
     ProfileComponent,
+    PurchaserOffersComponent,
     ReviewsComponent,
+    RechargesComponent,
     AddReviewComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

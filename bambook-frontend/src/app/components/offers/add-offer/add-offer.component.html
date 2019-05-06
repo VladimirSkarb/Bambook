@@ -13,7 +13,9 @@
 
     <div class="wrap-input100">
       <span class="label-input100">Deadline:</span>
-      <input type="text" [(ngModel)]="deadline" name="deadline" class="input100" placeholder="Enter deadline of the offer">
+      <input type="text" matInput [matDatepicker]="picker" [(ngModel)]="deadline" name="deadline" placeholder="Enter deadline of the offer">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
       <span class="focus-input100"></span>
     </div>
 
