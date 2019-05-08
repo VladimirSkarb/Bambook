@@ -13,7 +13,7 @@
         <P class="book-status"><span> status: </span> {{offer.status}}</P>
         <a class="book-link" href="{{offer.link}}" target="_blank">{{offer.link}}</a>
         <div *ngIf="this.auth.loggedIn">
-          <div *ngIf="this.sameUser==false">
+          <div *ngIf="this.sameUser()==false">
             <button class="subscribe-button" (click)="subscribeOffer()">Subscribe</button>
           </div>
         </div>

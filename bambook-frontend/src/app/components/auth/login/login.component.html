@@ -1,16 +1,19 @@
 <div class="login">
 <div class="container">
   <div class="logo">Login</div>
+  <div *ngIf="message" class="alert alert-danger">
+    {{message}}
+  </div>
   <div class="login-item">
-    <form #myform="ngForm" (ngSubmit)="login(myform)" class="form form-login">
+    <form #myform="ngForm" (ngSubmit)="login()" class="form form-login">
       <div class="form-field">
         <label class="user" for="login-email"><span class="hidden">Email</span></label>
-        <input name="email" id="login-email" type="email" class="form-input" placeholder="Email" required ngModel>
+        <input name="email" id="login-email" type="email" class="form-input" placeholder="Email" [(ngModel)]="email">
       </div>
 
       <div class="form-field">
         <label class="lock" for="login-password"><span class="hidden">Password</span></label>
-        <input name="password" id="login-password" type="password" class="form-input" placeholder="Password" required ngModel>
+        <input name="password" id="login-password" type="password" class="form-input" placeholder="Password" [(ngModel)]="password">
       </div>
 
       <div class="form-field">
