@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'recharges',
+  selector: 'app-recharges',
   templateUrl: './recharges.component.html',
   styleUrls: ['./recharges.component.css']
 })
