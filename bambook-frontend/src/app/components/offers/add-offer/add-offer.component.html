@@ -1,10 +1,8 @@
 <div *ngIf="this.auth.loggedIn; else logInToAddOffer" class="container">
   <form (submit)="submitOffer()" class="contact100-form validate-form">
-
     <div *ngIf="message" class="alert alert-danger">
       {{message}}
     </div>
-
     <div class="wrap-input100">
       <span class="label-input100">Link to book:</span>
       <input type="text" [(ngModel)]="link" name="link" class="input100" placeholder="Copy link to the book from YakaBoo">

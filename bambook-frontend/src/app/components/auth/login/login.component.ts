@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
 
           // console.log(resp);
           this.jwtService.login(user);
-          this.router.navigateByUrl('/books/');
+          this.router.navigateByUrl('/books');
         } else {
           this.message = resp.message;
-          this.router.navigateByUrl('/books');
+          // this.router.navigateByUrl('/books');
         }
       });
     }

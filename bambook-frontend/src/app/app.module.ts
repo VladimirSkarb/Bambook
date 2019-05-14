@@ -20,6 +20,7 @@ import { RechargesComponent } from './components/profile/recharges/recharges.com
 import { ReviewsComponent } from './components/books/reviews/reviews.component';
 import { AddReviewComponent } from './components/books/reviews/add-review/add-review.component';
 import { MaterialModule } from './material.module';
+import { RechargeComponent } from './components/profile/recharge/recharge.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MaterialModule } from './material.module';
     PurchaserOffersComponent,
     ReviewsComponent,
     RechargesComponent,
-    AddReviewComponent
+    AddReviewComponent,
+    RechargeComponent,
   ],
   imports: [
     MaterialModule,
