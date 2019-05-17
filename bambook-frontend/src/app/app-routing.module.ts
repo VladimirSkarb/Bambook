@@ -10,6 +10,8 @@ import { UpdateBookComponent } from './components/books/update-book/update-book.
 import { ProfileComponent } from './components/profile/profile.component';
 import { PurchaserOffersComponent } from './components/profile/purchaser-offers/purchaser-offers.component';
 import { RechargesComponent } from './components/profile/recharges/recharges.component';
+import { RechargeComponent } from './components/profile/recharge/recharge.component';
+
 
 const routes: Routes = [
   { path:  'auth', loadChildren:  './components/auth/auth.module#AuthModule' },
@@ -22,7 +24,9 @@ const routes: Routes = [
   { path: 'books/update/:id', component: UpdateBookComponent },
   { path: 'profile', component: ProfileComponent},
   { path: 'profile/purchaser', component: PurchaserOffersComponent},
-  { path: 'profile/recharges', component: RechargesComponent}
+  { path: 'profile/recharges', component: RechargesComponent},
+  { path: 'profile/recharge', component: RechargeComponent}
+
 ];
 
 @NgModule({
